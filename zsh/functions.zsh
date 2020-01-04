@@ -72,3 +72,8 @@ now() {
 to_date() {
     date -Iseconds --date=@$1
 }
+
+
+path_list() {
+    echo -e "${PATH//:/\n}"
+}
