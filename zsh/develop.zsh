@@ -29,3 +29,7 @@ if [ -e "/usr/local/bin/terraform" ]; then
     autoload -U +X bashcompinit && bashcompinit
     complete -o nospace -C /usr/local/bin/terraform terraform
 fi
+
+if [ -d "$HOME/.local/bin/" ]; then
+    export PATH=$HOME/.local/bin:$PATH
+fi
