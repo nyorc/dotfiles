@@ -14,8 +14,10 @@ if [ -e "/usr/local/bin/go" ]; then
 fi
 
 # set composer env
-if [ -d "$HOME/.config/composer/vendor/bin/" ]; then
-    export PATH=$PATH:$HOME/.config/composer/vendor/bin/
+if [ -d "$HOME/.config/composer/vendor/bin" ]; then
+    if ! [[ ":$PATH:" =~ ":$HOME/.config/composer/vendor/bin:" ]]; then
+        PATH="$HOME/.config/composer/vendor/bin:$PATH"
+    fi
 fi
 
 # set nvm env
@@ -30,6 +32,8 @@ if [ -e "/usr/local/bin/terraform" ]; then
     complete -o nospace -C /usr/local/bin/terraform terraform
 fi
 
-if [ -d "$HOME/.local/bin/" ]; then
-    export PATH=$HOME/.local/bin:$PATH
+if [ -d "$HOME/.local/bin" ]; then
+    if ! [[ ":$PATH:" =~ ":$HOME/.local/bin:" ]]; then
+        PATH="$HOME/.local/bin:$PATH"
+    fi
 fi
