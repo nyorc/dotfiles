@@ -489,3 +489,7 @@ nmap <Leader>gd :call phpactor#GotoDefinition()<CR>
 " Transform the classes in the current file
 nmap <Leader>tt :call phpactor#Transform()<CR>
 " }
+
+" Terraform {
+let g:terraform_fmt_on_save=1
+" }
