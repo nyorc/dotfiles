@@ -65,7 +65,7 @@ open_monitor() {
     tmux send-keys -t 4 'watch uptime' C-j
 }
 
-now() {
+timestamp() {
     date +%s
 }
 
@@ -74,6 +74,6 @@ to_date() {
 }
 
 
-path_list() {
+path() {
     echo -e "${PATH//:/\n}"
 }
