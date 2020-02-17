@@ -15,6 +15,9 @@ tasks:
   neofetch:
     links:
       - [".config/neofetch/config.conf", "neofetch/config.conf"]
+  alacritty:
+    links:
+      - [".config/alacritty/alacritty.yml", "alacritty.yml"]
   Linux:
     deps:
       - vim
@@ -30,6 +33,7 @@ tasks:
       - zsh
       - git
       - tmux
+      - alacritty
     links:
       - ["Library/Application Support/Code/User/settings.json", "vscode/settings.json"]
   unknow:
