@@ -19,7 +19,7 @@ Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 Plug 'shougo/denite.nvim'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
+"Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 " git
 Plug 'airblade/vim-gitgutter'
@@ -112,7 +112,7 @@ set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 set cursorline                  " Highlight the screen line of the cursor with CursorLine
 set number                      " Line numbers on
-set relativenumber
+"set relativenumber
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Highlight search terms
