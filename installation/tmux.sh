@@ -3,7 +3,7 @@
 # https://github.com/tmux/tmux/wiki
 
 linux_install() {
-    VERSION="2.9a"
+    VERSION="3.0a"
 
     sudo apt -y remove tmux
     sudo apt -y install automake build-essential libevent-dev libncurses-dev
