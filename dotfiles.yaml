@@ -15,9 +15,6 @@ tasks:
   neofetch:
     links:
       - [".config/neofetch/config.conf", "neofetch/config.conf"]
-  alacritty:
-    links:
-      - [".config/alacritty/alacritty.yml", "alacritty.yml"]
   Linux:
     deps:
       - vim
@@ -27,15 +24,16 @@ tasks:
     links:
       - [".config/Code/User/settings.json", "vscode/settings.json"]
       - [".newsboat/config", "newsboat/config"]
+      - [".config/alacritty/alacritty.yml", "alacritty/alacritty.mac.yml"]
   Darwin:
     deps:
       - vim
       - zsh
       - git
       - tmux
-      - alacritty
     links:
       - ["Library/Application Support/Code/User/settings.json", "vscode/settings.json"]
+      - [".config/alacritty/alacritty.yml", "alacritty/alacritty.mac.yml"]
   unknow:
     cmds:
       - ["echo", "can't install dotfile in unknow OS."]
