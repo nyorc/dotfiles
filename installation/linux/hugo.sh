@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-version="0.59.1"
+version="0.65.3"
 
 wget "https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_${version}_Linux-64bit.deb"
 
