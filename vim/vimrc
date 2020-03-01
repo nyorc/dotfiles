@@ -316,7 +316,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " Better Whitespace {
 let g:strip_whitespace_on_save = 1
-let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help']
+let g:better_whitespace_filetypes_blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
 " }
 
 " golang {
