@@ -165,6 +165,10 @@ let mapleader = ',' " Replace leader to ',', default leader is '\'
 " Clean searching highlight
 nnoremap \ :noh<cr>
 
+" Quickly insert an empty new line without entering insert mode
+nnoremap <Leader>o o<Esc>
+nnoremap <Leader>O O<Esc>
+
 " }
 
 " FileType {
