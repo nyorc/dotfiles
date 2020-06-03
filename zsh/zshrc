@@ -29,7 +29,7 @@ plugins=(
     docker
     git
     go
-    laravel5
+    #nvm
     thefuck
     yarn
     vagrant
