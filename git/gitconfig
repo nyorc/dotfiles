@@ -1,8 +1,7 @@
 # vim: set ft=gitconfig:
 
 [user]
-    name = nyo
-    email = nyo4rdace@gmail.com
+	useConfigOnly = true
 
 [include]
     path = ~/.gitconfig.local
