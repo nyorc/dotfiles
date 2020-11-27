@@ -2,6 +2,9 @@
     "[javascript]": {
         "editor.tabSize": 2
     },
+    "[terraform]": {
+        "editor.formatOnSave": true
+    },
     "workbench.statusBar.feedback.visible": false,
     "vsicons.dontShowNewVersionMessage": true,
     "editor.fontSize": 14,
@@ -21,4 +24,14 @@
         "statusBar.debuggingBackground": "#005f5f"
     },
     "vim.statusBarColorControl": true,
+    "terraform.languageServer": {
+
+        "external": true,
+        "pathToBinary": "",
+        "args": [
+            "serve"
+        ],
+        "maxNumberOfProblems": 100,
+        "trace.server": "off"
+    },
 }
