@@ -71,3 +71,8 @@
     pl-fo = pull --ff-only
     mg-nf = merge --no-ff
     remotes = remote -v
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
