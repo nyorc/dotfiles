@@ -28,7 +28,7 @@ ZSH_CUSTOM=$HOME/.dotfiles/zsh
 plugins=(
     docker
     git
-    go
+    golang
     #nvm
     thefuck
     yarn
