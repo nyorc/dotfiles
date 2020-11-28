@@ -24,6 +24,8 @@
     summary = true
 [push]
     default = simple
+[pull]
+	ff = only
 [color]
     branch = auto
     diff = auto
