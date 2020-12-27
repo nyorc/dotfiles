@@ -1,0 +1,6 @@
+---
+- name: Install Packages
+  hosts: local
+  become: yes
+  roles:
+    - basic-install
