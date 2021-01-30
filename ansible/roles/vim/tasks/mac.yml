@@ -1,0 +1,9 @@
+---
+- name: Install vim with brew
+  homebrew:
+    name: vim
+    state: latest
+- name: Install universal-ctags with brew
+  homebrew:
+    name: universal-ctags/universal-ctags/universal-ctags
+    state: head

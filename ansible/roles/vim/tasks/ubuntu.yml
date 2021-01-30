@@ -1,11 +1,11 @@
 ---
-- name: Make sure apt packages are installed
+- name: Install vim-nox with apt
   apt:
     name: vim-nox
     state: latest
     update_cache: true
   become: true
-- name: Make sure snap packages are installed
+- name: Install universal-ctags with apt
   snap:
     name: universal-ctags
   become: true
