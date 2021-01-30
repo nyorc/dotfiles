@@ -1,16 +1,15 @@
 " vimrc
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker :
+" vim: set sw=4 ts=4 sts=4 et tw=80 foldlevel=0 foldmethod=marker :
 
 set nocompatible        " Must be first line
 
-" plugin {
+" Plug menu {{{
 call plug#begin('~/.vim/plugged')
 
 " basic
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'gorodinskiy/vim-coloresque'
-"Plug 'nathanaelkane/vim-indent-guides'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/matchit.zip'
 Plug 'luochen1990/rainbow'
@@ -54,7 +53,6 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
 
 " languages
 Plug 'elzr/vim-json'
@@ -95,9 +93,9 @@ Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 Plug 'hashivim/vim-hashicorp-tools'
 
 call plug#end()
-" }
+" }}}
 
-" General {
+" General {{{
 set background=dark             " Assume a dark background
 set mouse=a                     " Automatically enable mouse usage
 set mousehide                   " Hide the mouse cursor while typing
@@ -114,10 +112,13 @@ set cursorline                  " Highlight the screen line of the cursor with C
 set number                      " Line numbers on
 "set relativenumber
 set showmatch                   " Show matching brackets/parenthesis
+
+" search:
 set incsearch                   " Find as you type search
 set hlsearch                    " Highlight search terms
 set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
+
 set wildmenu                    " Show list instead of just completing
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
@@ -128,6 +129,11 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current
 
+" Default fileformat.
+set fileformat=unix
+" Automatic recognition of a new line cord.
+set fileformats=unix,dos,mac"
+
 set nowrap                      " Do not wrap long lines
 set autoindent                  " Indent at the same level of the previous line
 set shiftwidth=4                " Use indents of 4 spaces
@@ -135,12 +141,6 @@ set expandtab                   " Tabs are spaces, not tabs
 set tabstop=4                   " An indentation every four columns
 set softtabstop=4               " Let backspace delete indent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
-
-if isdirectory(expand("~/.vim/plugged/gruvbox/"))
-    colorscheme gruvbox
-else
-    colorscheme slate
-endif
 
 if has('clipboard')
     if has('unnamedplus')
@@ -169,9 +169,17 @@ nnoremap \ :noh<cr>
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
 
-" }
+" }}}
 
-" FileType {
+" Color {{{
+if isdirectory(expand("~/.vim/plugged/gruvbox/"))
+    colorscheme gruvbox
+else
+    colorscheme slate
+endif
+" }}}
+
+" FileType {{{
 autocmd BufNewFile,BufRead .eslintrc set filetype=json
 autocmd BufNewFile,BufRead .babelrc set filetype=json
 autocmd BufNewFile,BufRead *.vue setlocal filetype=vue
@@ -182,9 +190,9 @@ augroup ansible_vim_fthosts
   autocmd!
   autocmd BufNewFile,BufRead hosts setfiletype yaml.ansible
 augroup END
-" }
+" }}}
 
-" Directory {
+" Directory of swap, backup and undo {{{
 " store swapfiles in a central location
 set directory=~/.vim/tmp/swap//
 if !isdirectory(&directory)
@@ -209,11 +217,11 @@ if has('persistent_undo')
         call mkdir(&undodir, 'p')
     endif
 endif
-" }
+" }}}
 
 " # Plugin settings
 
-" NERDTree {
+" NERDTree {{{
 map <C-n> :NERDTreeToggle<CR>
 nmap <leader>nf :NERDTreeFind<CR>
 
@@ -222,9 +230,9 @@ let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-" }
+" }}}
 
-" Airline {
+" Airline {{{
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'cool'
 "let g:airline_left_sep='⟩'  " Slightly fancier than '>'
@@ -236,71 +244,64 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#excludes = [ 'tagbar' ]
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
-" }
+" }}}
 
-" vim indent guides {
-if isdirectory(expand("~/.vim/plugged/vim-indent-guides/"))
-    let g:indent_guides_start_level = 2
-    "let g:indent_guides_guide_size = 1
-    "let g:indent_guides_enable_on_vim_startup = 1
-    "hi IndentGuidesOdd  ctermbg=black
-    "hi IndentGuidesEven ctermbg=darkgrey
-endif
-" }
-
-" Snippet {
+" Neosnippet {{{
+" key mappings
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
-let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
+
+" Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
 
 if has('conceal')
     set conceallevel=2 concealcursor=niv
 endif
+" }}}
 
-" }
-
-" Deoplete {
+" Deoplete {{{
 let g:deoplete#enable_at_startup = 1
 
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#package_dot = 1
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" omni_patterns
+"set completeopt+=noinsert,noselect
+"call deoplete#custom#option('omni_patterns', {
+"\ 'go': '[^. *\t]\.\w*',
+"\})
 
-set completeopt+=noinsert,noselect
-call deoplete#custom#option('omni_patterns', {
-\ 'go': '[^. *\t]\.\w*',
-\})
-
-" SuperTab like snippets' behavior.
+" Tab Select behavior.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" }
+" close preview window
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
+" }}}
 
-" Enable omni completion {
-    autocmd FileType php setlocal omnifunc=phpactor#Complete
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-" }
+" Enable omni completion {{{
+" TODO: integration with Deoplete
+" https://github.com/Shougo/deoplete.nvim/wiki/Completion-Sources
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+" }}}
 
-" Ale {
-let g:ale_completion_enabled = 1
+" Ale {{{
+"let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 
 let g:ale_linters = {
 "\   'php': ['phpcs'],
-\   'go': ['gofmt', 'golint', 'go vet', 'go build'],
+\   'go': ['gopls', 'gofmt', 'golint', 'go vet', 'go build'],
 \   'yaml.ansible': ['ansible-lint'],
 \   }
 let g:ale_fixers = {
@@ -319,14 +320,15 @@ let g:ale_sign_warning = '•'
 let g:ale_echo_msg_error_str = '✖ Error'
 let g:ale_echo_msg_warning_str = '⚠ Warning'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" }
+" }}}
 
-" Better Whitespace {
+" Better Whitespace {{{
 let g:strip_whitespace_on_save = 1
 let g:better_whitespace_filetypes_blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
-" }
+" }}}
 
-" golang {
+" vim-go golang {{{
+" highlight
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
@@ -340,7 +342,7 @@ let g:go_fmt_command = "goimports"
 let g:go_snippet_engine = "neosnippet"
 
 "au FileType go nmap <Leader>s <Plug>(go-implements)
-"au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>i <Plug>(go-info)
 "au FileType go nmap <Leader>e <Plug>(go-rename)
 "au FileType go nmap <leader>r <Plug>(go-run)
 "au FileType go nmap <leader>b <Plug>(go-build)
@@ -348,13 +350,13 @@ let g:go_snippet_engine = "neosnippet"
 "au FileType go nmap <Leader>gd <Plug>(go-doc)
 "au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 "au FileType go nmap <leader>co <Plug>(go-coverage)
-" }
+" }}}
 
-" close tag {
+" close tag {{{
 let g:closetag_filetypes = 'html,jsx,javascript'
-" }
+" }}}
 
-" Tabularize {
+" Tabularize {{{
 if isdirectory(expand("~/.vim/plugged/tabular"))
     nmap <Leader>a& :Tabularize /&<CR>
     vmap <Leader>a& :Tabularize /&<CR>
@@ -373,9 +375,9 @@ if isdirectory(expand("~/.vim/plugged/tabular"))
     nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
     vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 endif
-" }
+" }}}
 
-" TagBar {
+" TagBar {{{
 if isdirectory(expand("~/.vim/plugged/tagbar"))
     nnoremap <silent> <leader>t :TagbarToggle<CR>
     let g:tagbar_type_markdown = {
@@ -387,9 +389,9 @@ if isdirectory(expand("~/.vim/plugged/tagbar"))
         \ ]
     \ }
 endif
-"}
+" }}}
 
-" rainbow {
+" rainbow {{{
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
     \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
@@ -413,9 +415,9 @@ let g:rainbow_conf = {
     \       'css': 0,
     \   }
     \}
-" }
+" }}}
 
-" vimux {
+" Vimux {{{
 " Prompt for a command to run
 map <Leader>vp :VimuxPromptCommand<CR>
 " Run last command executed by VimuxRunCommand
@@ -428,21 +430,21 @@ map <Leader>vq :VimuxCloseRunner<CR>
 map <Leader>vx :VimuxInterruptRunner<CR>
 " Zoom the runner pane (use <bind-key> z to restore runner pane)
 map <Leader>vz :call VimuxZoomRunner()<CR>
-" }
+" }}}
 
-" json {
+" JSON {{{
 let g:vim_json_syntax_conceal = 0
-" }
+" }}}
 
-" markdown {
+" Markdown {{{
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_new_list_item_indent = 2
-" }
+" }}}
 
-" Denite {
+" Denite {{{
 if isdirectory(expand("~/.vim/plugged/denite.nvim"))
     autocmd FileType denite call s:denite_my_settings()
     function! s:denite_my_settings() abort
@@ -499,22 +501,19 @@ if isdirectory(expand("~/.vim/plugged/denite.nvim"))
     call denite#custom#var('git', 'command',
               \ ['git', 's'])
 endif
-" }
+" }}}
 
-" Phpactor {
-let g:phpactorPhpBin = '/usr/local/bin/php'
+" Phpactor {{{
+augroup PhpactorMappings
+    au!
+    au FileType php nmap <buffer> <Leader>mm :PhpactorContextMenu<CR>
+    au FileType php nmap <buffer> <Leader>nn :PhpactorNavigate<CR>
+    au FileType php nmap <buffer> <Leader>Oh :PhpactorGotoDefinitionHsplit<CR>
+    au FileType php nmap <buffer> <Leader>tt :PhpactorTransform<CR>
+    au FileType php nmap <buffer> <Leader>cc :PhpactorClassNew<CR>
+augroup END
+" }}}
 
-" Invoke the context menu
-nmap <Leader>mm :call phpactor#ContextMenu()<CR>
-" Invoke the navigation menu
-nmap <Leader>nn :call phpactor#Navigate()<CR>
-" Goto definition of class or class member under the cursor
-"nmap <Leader>gd :call phpactor#GotoDefinition()<CR>
-nnoremap <silent> gd :call phpactor#GotoDefinition()<CR>
-" Transform the classes in the current file
-nmap <Leader>tt :call phpactor#Transform()<CR>
-" }
-
-" Terraform {
+" Terraform {{{
 let g:terraform_fmt_on_save=1
-" }
+" }}}
