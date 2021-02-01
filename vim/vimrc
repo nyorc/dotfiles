@@ -431,38 +431,34 @@ let g:closetag_filetypes = 'html,jsx,javascript'
 " }}}
 
 " Tabularize {{{
-if isdirectory(expand("~/.vim/plugged/tabular"))
-    nmap <Leader>a& :Tabularize /&<CR>
-    vmap <Leader>a& :Tabularize /&<CR>
-    nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-    vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-    nmap <Leader>a=> :Tabularize /=><CR>
-    vmap <Leader>a=> :Tabularize /=><CR>
-    nmap <Leader>a: :Tabularize /:<CR>
-    vmap <Leader>a: :Tabularize /:<CR>
-    nmap <Leader>a:: :Tabularize /:\zs<CR>
-    vmap <Leader>a:: :Tabularize /:\zs<CR>
-    nmap <Leader>a, :Tabularize /,<CR>
-    vmap <Leader>a, :Tabularize /,<CR>
-    nmap <Leader>a,, :Tabularize /,\zs<CR>
-    vmap <Leader>a,, :Tabularize /,\zs<CR>
-    nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-    vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-endif
+nmap <Leader>a& :Tabularize /&<CR>
+vmap <Leader>a& :Tabularize /&<CR>
+nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
+vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
+nmap <Leader>a=> :Tabularize /=><CR>
+vmap <Leader>a=> :Tabularize /=><CR>
+nmap <Leader>a: :Tabularize /:<CR>
+vmap <Leader>a: :Tabularize /:<CR>
+nmap <Leader>a:: :Tabularize /:\zs<CR>
+vmap <Leader>a:: :Tabularize /:\zs<CR>
+nmap <Leader>a, :Tabularize /,<CR>
+vmap <Leader>a, :Tabularize /,<CR>
+nmap <Leader>a,, :Tabularize /,\zs<CR>
+vmap <Leader>a,, :Tabularize /,\zs<CR>
+nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 " }}}
 
 " TagBar {{{
-if isdirectory(expand("~/.vim/plugged/tagbar"))
-    nnoremap <silent> <leader>t :TagbarToggle<CR>
-    let g:tagbar_type_markdown = {
-        \ 'ctagstype' : 'markdown',
-        \ 'kinds' : [
-            \ 'h:Heading_L1',
-            \ 'i:Heading_L2',
-            \ 'k:Heading_L3'
-        \ ]
-    \ }
-endif
+nnoremap <silent> <leader>t :TagbarToggle<CR>
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'h:Heading_L1',
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+    \ ]
+\ }
 " }}}
 
 " rainbow {{{
@@ -519,62 +515,60 @@ let g:vim_markdown_new_list_item_indent = 2
 " }}}
 
 " Denite {{{
-if isdirectory(expand("~/.vim/plugged/denite.nvim"))
-    autocmd FileType denite call s:denite_my_settings()
-    function! s:denite_my_settings() abort
-      nnoremap <silent><buffer><expr> <CR>
-      \ denite#do_map('do_action')
-      nnoremap <silent><buffer><expr> d
-      \ denite#do_map('do_action', 'delete')
-      nnoremap <silent><buffer><expr> p
-      \ denite#do_map('do_action', 'preview')
-      nnoremap <silent><buffer><expr> q
-      \ denite#do_map('quit')
-      nnoremap <silent><buffer><expr> i
-      \ denite#do_map('open_filter_buffer')
-      nnoremap <silent><buffer><expr> <Space>
-      \ denite#do_map('toggle_select').'j'
-    endfunction
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
 
-    autocmd FileType denite-filter call s:denite_filter_my_settings()
-    function! s:denite_filter_my_settings() abort
-      imap <silent><buffer> <C-c> <Plug>(denite_filter_quit)
-    endfunction
+autocmd FileType denite-filter call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+  imap <silent><buffer> <C-c> <Plug>(denite_filter_quit)
+endfunction
 
-    nnoremap <silent> <leader>b :<C-u>Denite buffer<CR>
-    nnoremap <silent> <leader>/ :<C-u>Denite grep -no-empty<CR>
-    nnoremap <silent> <leader>f :<C-u>Denite -start-filter file/rec<CR>
-    nnoremap <silent> <leader>o :<C-u>Denite outline<CR>
-    nnoremap <silent> <leader>h :<C-u>Denite help<CR>
-    nnoremap <silent> <leader>r :<C-u>Denite register<CR>
-    nnoremap <silent> <leader>l :<C-u>Denite line<CR>
-    nnoremap <silent> <leader>! :<C-u>Denite -resume<CR>
-    nnoremap <silent> <leader>m :<C-u>Denite menu<CR>
+nnoremap <silent> <leader>b :<C-u>Denite buffer<CR>
+nnoremap <silent> <leader>/ :<C-u>Denite grep -no-empty<CR>
+nnoremap <silent> <leader>f :<C-u>Denite -start-filter file/rec<CR>
+nnoremap <silent> <leader>o :<C-u>Denite outline<CR>
+nnoremap <silent> <leader>h :<C-u>Denite help<CR>
+nnoremap <silent> <leader>r :<C-u>Denite register<CR>
+nnoremap <silent> <leader>l :<C-u>Denite line<CR>
+nnoremap <silent> <leader>! :<C-u>Denite -resume<CR>
+nnoremap <silent> <leader>m :<C-u>Denite menu<CR>
 
-    call denite#custom#map('insert', '<C-[>', '<denite:enter_mode:normal>', 'noremap')
-    call denite#custom#map('normal', '<C-[>', '<denite:quit>', 'noremap')
+call denite#custom#map('insert', '<C-[>', '<denite:enter_mode:normal>', 'noremap')
+call denite#custom#map('normal', '<C-[>', '<denite:quit>', 'noremap')
 
-    " Add custom menus
-    let s:menus = {}
+" Add custom menus
+let s:menus = {}
 
-    let s:menus.zsh = {
-        \ 'description': 'Edit zsh configuration'
-        \ }
-    let s:menus.zsh.file_candidates = [
-        \ ['zshrc', '~/.zshrc'],
-        \ ]
-    let s:menus.vim = {
-        \ 'description': 'Edit vimrc'
-        \ }
-    let s:menus.vim.file_candidates = [
-        \ ['vimrc', '~/.vimrc'],
-        \ ]
-    call denite#custom#var('menu', 'menus', s:menus)
+let s:menus.zsh = {
+    \ 'description': 'Edit zsh configuration'
+    \ }
+let s:menus.zsh.file_candidates = [
+    \ ['zshrc', '~/.zshrc'],
+    \ ]
+let s:menus.vim = {
+    \ 'description': 'Edit vimrc'
+    \ }
+let s:menus.vim.file_candidates = [
+    \ ['vimrc', '~/.vimrc'],
+    \ ]
+call denite#custom#var('menu', 'menus', s:menus)
 
-    call denite#custom#alias('source', 'git', 'file/rec')
-    call denite#custom#var('git', 'command',
-              \ ['git', 's'])
-endif
+call denite#custom#alias('source', 'git', 'file/rec')
+call denite#custom#var('git', 'command',
+          \ ['git', 's'])
 " }}}
 
 " Phpactor {{{
