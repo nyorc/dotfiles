@@ -226,8 +226,8 @@ endif
 " # Plugin settings
 
 " defx {{{
-nnoremap <silent> <leader>er :<C-U>Defx<CR>
-nnoremap <silent> <leader>ef :<C-U>Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
+nnoremap <silent> <leader>e :<C-U>Defx<CR>
+"nnoremap <silent> <leader>fe :<C-U>Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
 
 call defx#custom#option('_', {
     \ 'buffer_name': 'tabfx',
