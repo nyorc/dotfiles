@@ -1,0 +1,39 @@
+---
+- name: configure dotfiles
+  hosts: local
+  vars:
+    dotfiles:
+      - src: git/gitconfig
+        dest: ~/.gitconfig
+      - src: git/gitignore
+        dest: ~/.gitignore
+      - src: vim/vimrc
+        dest: ~/.vimrc
+      - src: zsh/zshrc
+        dest: ~/.zshrc
+      - src: tmux/tmux.conf
+        dest: ~/.tmux.conf
+        # TODO: vscode, alacritty
+
+  tasks:
+    - name: Get stats of dotfiles dest files.
+      ansible.builtin.stat:
+        path: "{{ item.dest }}"
+      register: st
+      with_items: "{{ dotfiles }}"
+
+    - name: Remove existing dotfiles file if dest file is not link.
+      file:
+        path: "{{ item.item.dest }}"
+        state: absent
+      when: item.stat.islnk is defined and not item.stat.islnk
+      with_items: "{{ st.results }}"
+
+    - name: Link dotfiles into home folder.
+      file:
+        src: "~/.dotfiles/{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+        mode: 0644
+      become: false
+      with_items: "{{ dotfiles }}"
