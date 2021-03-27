@@ -22,7 +22,7 @@ alias zshconfig='vim .zshrc'
 alias parrot='curl parrot.live'
 
 # exa
-if [ -e /usr/bin/exa ]; then
+if type exa > /dev/null; then
     alias ls='exa'
     alias ll='exa -lh'
     alias la='exa -lah'
