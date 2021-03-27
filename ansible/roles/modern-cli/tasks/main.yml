@@ -1,0 +1,5 @@
+---
+- import_tasks: ubuntu.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+- import_tasks: mac.yml
+  when: ansible_facts['distribution'] == "MacOSX"
