@@ -20,3 +20,14 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias zshconfig='vim .zshrc'
 
 alias parrot='curl parrot.live'
+
+# exa
+if [ -e /usr/bin/exa ]; then
+    alias ls='exa'
+    alias ll='exa -lh'
+    alias la='exa -lah'
+    alias lr='exa -lR'
+fi
+
+# typo is not bad
+alias sl='ls'
