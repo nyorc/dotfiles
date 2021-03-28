@@ -23,9 +23,9 @@ alias parrot='curl parrot.live'
 
 # exa
 if type exa > /dev/null; then
-    alias ls='exa'
-    alias ll='exa -lh'
-    alias la='exa -lah'
+    alias ls='exa --icons'
+    alias ll='exa -lh --icons'
+    alias la='exa -lah --icons'
     alias lr='exa -lR'
 fi
 
