@@ -31,3 +31,8 @@ fi
 
 # typo is not bad
 alias sl='ls'
+
+# bat
+if type bat > /dev/null; then
+    alias cat='bat'
+fi
