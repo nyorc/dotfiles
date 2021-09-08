@@ -377,15 +377,17 @@ let g:ale_lint_on_text_changed = 'never'
 
 let g:ale_linters = {
 "\   'php': ['phpcs'],
-\   'go': ['gopls', 'gofmt', 'golint', 'go vet', 'go build'],
+\   'go': ['gopls', 'gofmt', 'go build', 'golangci-lint'],
 \   'yaml.ansible': ['ansible-lint'],
 \   }
 let g:ale_fixers = {
   \   'javascript': ['eslint'],
   \   'python': ['yapf', 'isort'],
   \ }
-let g:ale_php_phpcs_standard = 'PSR1,PSR2'
-let g:ale_go_golangci_lint_options = '-E gofmt -E misspell'
+let g:ale_php_phpcs_standard = 'PSR1,PSR12'
+
+let g:ale_go_golangci_lint_options = ' '
+let g:ale_go_golangci_lint_package = 1
 
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
