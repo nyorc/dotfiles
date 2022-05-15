@@ -1,6 +1,8 @@
 # Dotfiles
 
-nyogjtrc's dotfiles. managed by Homemaker.
+nyogjtrc's dotfiles. Managed by Homemaker, but now move on ansible
+
+[TOC]
 
 ---
 
@@ -22,6 +24,15 @@ $ ./installation/homemaker.sh
 
 ```
 $ ./dotfiles.sh
+```
+
+## Install Ansible
+
+install pip3 then install ansible On Debian
+```
+$ sudo apt update
+$ sudo apt install python3-pip
+$ pip3 install ansible
 ```
 
 ---
