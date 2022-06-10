@@ -2,8 +2,14 @@
 - name: Install CLI tools with Homebrew
   homebrew:
     name:
+      - gnu-which
+      - gawk
+      - bash
+      - less
+      - make
       - tig
       - htop
+      - watch
       - jq
       - bat
       - exa
