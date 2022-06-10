@@ -9,3 +9,8 @@
   snap:
     name: universal-ctags
   become: true
+- name: Install python library for vim
+  pip:
+    name:
+      - pynvim
+      - neovim
