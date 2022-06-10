@@ -1,6 +1,6 @@
 ---
 - name: configure dotfiles
-  hosts: local
+  hosts: localhost
   vars:
     dotfiles:
       - src: git/gitconfig
