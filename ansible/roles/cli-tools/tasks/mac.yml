@@ -1,0 +1,11 @@
+---
+- name: Install CLI tools with Homebrew
+  homebrew:
+    name:
+      - tig
+      - htop
+      - jq
+      - bat
+      - exa
+    state: present
+

@@ -1,8 +1,0 @@
----
-- name: Include Ubuntu variables
-  include_vars:
-    file: ubuntu.yml
-  when: ansible_distribution == "Ubuntu"
-
-- include: ubuntu.yml
-  when: ansible_distribution == "Ubuntu"

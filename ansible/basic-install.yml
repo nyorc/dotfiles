@@ -1,8 +1,0 @@
----
-- name: Install Packages
-  hosts: localhost
-  #become: yes
-  roles:
-    - basic-install
-    - modern-cli
-    - terraform
