@@ -583,6 +583,7 @@ augroup PhpactorMappings
     au FileType php nmap <buffer> <Leader>Oh :PhpactorGotoDefinitionHsplit<CR>
     au FileType php nmap <buffer> <Leader>tt :PhpactorTransform<CR>
     au FileType php nmap <buffer> <Leader>cc :PhpactorClassNew<CR>
+    au FileType php nmap <buffer> gd :PhpactorGotoDefinition<CR>
 augroup END
 " }}}
 
