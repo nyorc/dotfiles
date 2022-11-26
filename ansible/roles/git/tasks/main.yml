@@ -1,0 +1,21 @@
+---
+- include_tasks: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+- include_tasks: mac.yml
+  when: ansible_distribution == "MacOSX"
+
+- name: Link gitignore
+  file:
+    src: ~/.dotfiles/git/gitignore
+    dest: ~/.gitignore
+    state: link
+    mode: 0644
+  become: false
+
+- name: Link gitconfig
+  file:
+    src: ~/.dotfiles/git/gitconfig
+    dest: ~/.gitconfig
+    state: link
+    mode: 0644
+  become: false

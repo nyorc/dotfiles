@@ -3,17 +3,14 @@
   hosts: localhost
   vars:
     dotfiles:
-      - src: git/gitconfig
-        dest: ~/.gitconfig
-      - src: git/gitignore
-        dest: ~/.gitignore
-      - src: vim/vimrc
-        dest: ~/.vimrc
       - src: zsh/zshrc
         dest: ~/.zshrc
       - src: tmux/tmux.conf
         dest: ~/.tmux.conf
         # TODO: vscode, alacritty
+  roles:
+    - {role: vim, tags: ['vim']}
+    - {role: git, tags: ['git']}
 
   tasks:
     - name: Get stats of dotfiles dest files.
