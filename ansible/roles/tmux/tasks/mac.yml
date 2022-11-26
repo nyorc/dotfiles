@@ -1,0 +1,15 @@
+---
+- name: Install tmux with brew
+  homebrew:
+    name: tmux
+    state: present
+
+# reattach-to-user-namespace
+# tmux exits with [exited] on mac os x
+# https://superuser.com/questions/397076/tmux-exits-with-exited-on-mac-os-x
+- name: Install tmux required packages
+  homebrew:
+    name:
+      - reattach-to-user-namespace
+      - tmux-mem-cpu-load
+    state: present
