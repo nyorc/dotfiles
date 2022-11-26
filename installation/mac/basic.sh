@@ -8,6 +8,3 @@ brew install bash less make
 
 # update non gnu tools
 brew install git python rsync zsh
-
-# install other nice tools
-brew install tig htop watch jq bat

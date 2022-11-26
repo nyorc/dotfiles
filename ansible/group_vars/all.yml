@@ -11,6 +11,21 @@ homebrew_packages:
   - bat
   - exa
   - diff-so-fancy
+  - youtube-dl
+
+homebrew_cask_packages:
+  - google-chrome
+  - firefox
+  - telegram-desktop
+  - visual-studio-code
+  - keepingyouawake
+  - keycastr
+  - rectangle
+  - keepassxc
+  - insomnia
+  - joplin
+  - scroll-reverser
+  - mpv
 
 apt_packages:
   - git-lfs

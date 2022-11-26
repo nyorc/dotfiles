@@ -1,0 +1,6 @@
+---
+- name: Install GUI apps with homebrew cask
+  homebrew_cask:
+    name: "{{item}}"
+    state: present
+  with_items: "{{homebrew_cask_packages}}"
