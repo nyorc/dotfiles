@@ -10,3 +10,4 @@
     - {role: cli, tags: ['cli']}
     - {role: gui, tags: ['gui']}
     - {role: font, tags: ['font']}
+    - {role: php, tags: ['php']}

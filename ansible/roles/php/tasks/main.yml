@@ -1,0 +1,11 @@
+---
+- include_tasks: mac.yml
+  when: ansible_distribution == "MacOSX"
+
+- name: Install packages globally with composer
+  command: composer global require {{item}}
+  with_items:
+    - "squizlabs/php_codesniffer=*"
+    - "phpmd/phpmd=@stable"
+    - "friendsofphp/php-cs-fixer"
+
