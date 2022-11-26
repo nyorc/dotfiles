@@ -1,0 +1,8 @@
+---
+- name: Link alacritty
+  file:
+    src: ~/.dotfiles/alacritty/alacritty.mac.yml
+    dest: ~/.config/alacritty/alacritty.yml
+    state: link
+    mode: 0644
+

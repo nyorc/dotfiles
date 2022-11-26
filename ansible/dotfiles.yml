@@ -6,4 +6,4 @@
     - {role: git, tags: ['git']}
     - {role: vim, tags: ['vim']}
     - {role: tmux, tags: ['tmux']}
-  # TODO: vscode, alacritty
+    - {role: alacritty, tags: ['alacritty']}

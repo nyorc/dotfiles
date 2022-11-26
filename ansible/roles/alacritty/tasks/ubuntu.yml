@@ -1,0 +1,7 @@
+---
+- name: Link vimrc
+  file:
+    src: ~/.dotfiles/alacritty/alacritty.ubuntu.yml
+    dest: ~/.config/alacritty/alacritty.yml
+    state: link
+    mode: 0644
