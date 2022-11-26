@@ -1,4 +1,4 @@
 - name: Install git with brew
   homebrew:
-    name: vim
+    name: git
     state: present

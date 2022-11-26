@@ -1,0 +1,32 @@
+homebrew_packages:
+  - gnu-which
+  - gawk
+  - bash
+  - less
+  - make
+  - tig
+  - htop
+  - watch
+  - jq
+  - bat
+  - exa
+  - diff-so-fancy
+
+apt_packages:
+  - git-lfs
+  - python3-pip
+  - tig
+  - tmux
+  - curl
+  - htop
+  - whois
+  - xclip
+  - lm-sensors
+  - jq
+  - feh
+  - dnsutils
+  - bat
+  - exa
+  - fd-find
+  - ncdu
+  - httpie

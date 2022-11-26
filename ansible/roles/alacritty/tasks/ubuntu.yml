@@ -1,5 +1,5 @@
 ---
-- name: Link vimrc
+- name: Link alacritty
   file:
     src: ~/.dotfiles/alacritty/alacritty.ubuntu.yml
     dest: ~/.config/alacritty/alacritty.yml
