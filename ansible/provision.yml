@@ -1,5 +1,0 @@
----
-- name: Provisioning enviroment
-  hosts: localhost
-  roles:
-    - cli-tools
