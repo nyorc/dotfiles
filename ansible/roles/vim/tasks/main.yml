@@ -1,7 +1,7 @@
 ---
-- include: ubuntu.yml
+- include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"
-- include: mac.yml
+- include_tasks: mac.yml
   when: ansible_distribution == "MacOSX"
 
 - name: Download vim-plug from github
