@@ -1,6 +1,14 @@
 homebrew_packages:
+  - coreutils
+  - findutils
+  - gnu-tar
+  - gnu-sed
   - gnu-which
   - gawk
+  - gnutls
+  - grep
+  - gzip
+  - wget
   - bash
   - less
   - make
