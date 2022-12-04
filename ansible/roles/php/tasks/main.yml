@@ -1,4 +1,6 @@
 ---
+- include_tasks: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
 - include_tasks: mac.yml
   when: ansible_distribution == "MacOSX"
 
@@ -8,4 +10,3 @@
     - "squizlabs/php_codesniffer=*"
     - "phpmd/phpmd=@stable"
     - "friendsofphp/php-cs-fixer"
-
