@@ -1,5 +1,5 @@
 ---
 - name: Install CLI tools with Homebrew
   homebrew:
-    name: "{{homebrew_packages}}"
+    name: "{{ homebrew_packages }}"
     state: present

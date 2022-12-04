@@ -1,5 +1,9 @@
 ---
-- include_tasks: mac.yml
+- name: Include ubuntu tasks
+  include_tasks: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+- name: Include mac tasks
+  include_tasks: mac.yml
   when: ansible_distribution == "MacOSX"
 
 - name: Link tmux.conf

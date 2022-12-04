@@ -1,6 +1,0 @@
----
-- name: Install Python Packages
-  hosts: localhost
-  become: yes
-  roles:
-    - pip

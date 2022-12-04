@@ -1,5 +1,5 @@
 ---
-- name: dotfiles
+- name: Dotfiles
   hosts: localhost
   roles:
     - {role: zsh, tags: ['zsh']}

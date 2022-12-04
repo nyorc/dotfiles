@@ -1,13 +1,16 @@
 ---
-- include_tasks: ubuntu.yml
+- name: Include ubuntu tasks
+  include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"
-- include_tasks: mac.yml
+- name: Include mac tasks
+  include_tasks: mac.yml
   when: ansible_distribution == "MacOSX"
 
 - name: Download vim-plug from github
   get_url:
     url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     dest: ~/.vim/autoload/plug.vim
+    mode: 0644
 
 - name: Get stats of vimrc
   ansible.builtin.stat:
