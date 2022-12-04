@@ -1,0 +1,6 @@
+---
+- name: Install python library
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ python_packages }}"

@@ -2,15 +2,11 @@
 - name: Install vim-nox with apt
   apt:
     name: vim-nox
-    state: latest
+    state: present
     update_cache: true
   become: true
+
 - name: Install universal-ctags with apt
-  snap:
+  community.general.snap:
     name: universal-ctags
   become: true
-- name: Install python library for vim
-  pip:
-    name:
-      - pynvim
-      - neovim
