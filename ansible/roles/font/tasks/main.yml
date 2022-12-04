@@ -1,7 +1,16 @@
 ---
+- name: Include ubuntu cars
+  include_vars: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
 - name: Include mac vars
   include_vars: mac.yml
   when: ansible_distribution == "MacOSX"
+
+- name: Ensure font directory exists
+  file:
+    path: "{{ font_dir }}"
+    state: directory
+    mode: 0755
 
 - name: Install Hack Nerd Font
   get_url:
