@@ -2,8 +2,9 @@
 - name: Install CLI tools with apt
   become: true
   apt:
-    name: "{{ apt_packages }}"
+    name: "{{ item }}"
     state: present
+  with_items: "{{ apt_packages }}"
 
 - name: Clone diff-so-fancy
   git:
