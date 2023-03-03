@@ -9,7 +9,7 @@
     state: head
 - name: Install python library for vim
   pip:
-    executable: /usr/local/opt/python@3.10/bin/pip3
+    executable: /usr/local/opt/python@3.11/bin/pip3
     name:
       - pynvim
       - neovim
