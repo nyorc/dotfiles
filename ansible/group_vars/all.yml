@@ -19,8 +19,8 @@ homebrew_packages:
   - jq
   - bat
   - exa
-  - diff-so-fancy
   - youtube-dl
+  - git-delta
 
 homebrew_cask_packages:
   - google-chrome
