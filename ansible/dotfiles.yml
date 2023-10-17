@@ -2,6 +2,7 @@
 - name: Dotfiles
   hosts: localhost
   roles:
+    - {role: font, tags: ['font']}
     - {role: zsh, tags: ['zsh']}
     - {role: git, tags: ['git']}
     - {role: vim, tags: ['vim']}
@@ -9,5 +10,4 @@
     - {role: alacritty, tags: ['alacritty']}
     - {role: cli, tags: ['cli']}
     - {role: gui, tags: ['gui']}
-    - {role: font, tags: ['font']}
     - {role: php, tags: ['php']}

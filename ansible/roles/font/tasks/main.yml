@@ -14,6 +14,6 @@
 
 - name: Install Hack Nerd Font
   get_url:
-    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
-    dest: "{{ font_dir }}/Hack Regular Nerd Font Complete Mono.ttf"
+    url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf
+    dest: "{{ font_dir }}/HackNerdFontMono-Regular.ttf"
     mode: 0644
