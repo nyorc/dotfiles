@@ -1,4 +1,10 @@
 ---
+- name: Make sure config folder existed
+  file:
+    path: ~/.config/alacritty
+    state: directory
+    mode: 0700
+
 - name: Link alacritty
   file:
     src: ~/.dotfiles/alacritty/alacritty.mac.yml
