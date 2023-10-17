@@ -29,6 +29,14 @@ if type exa > /dev/null; then
     alias lr='exa -lR'
 fi
 
+# eza
+if type eza > /dev/null; then
+    alias ls='eza --icons'
+    alias ll='eza -lh --icons'
+    alias la='eza -lah --icons'
+    alias lr='eza -lR'
+fi
+
 # typo is not bad
 alias sl='ls'
 
