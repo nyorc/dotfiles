@@ -95,6 +95,8 @@ Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 " Terraform
 Plug 'hashivim/vim-hashicorp-tools'
 
+" Copilot
+Plug 'github/copilot.vim'
 call plug#end()
 " }}}
 
