@@ -1,15 +1,9 @@
 ---
 - name: Install vim with brew
   homebrew:
-    name: vim
+    name: macvim
     state: latest
 - name: Install universal-ctags with brew
   homebrew:
     name: universal-ctags/universal-ctags/universal-ctags
     state: head
-- name: Install python library for vim
-  pip:
-    executable: /usr/local/opt/python@3.11/bin/pip3
-    name:
-      - pynvim
-      - neovim
