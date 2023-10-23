@@ -29,11 +29,11 @@ plugins=(
     docker
     git
     golang
-    #nvm
-    thefuck
-    yarn
-    vagrant
-    composer
+    nvm
+    #thefuck
+    #yarn
+    #vagrant
+    #composer
 )
 
 source $ZSH/oh-my-zsh.sh
