@@ -22,9 +22,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Use another custom folder than $ZSH/custom
 ZSH_CUSTOM=$HOME/.dotfiles/zsh
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Add wisely, as too many plugins slow down shell startup.
+# Which plugins would you like to load?
 plugins=(
     docker
     git
@@ -40,16 +38,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
 # colors
 [[ "$TERM" == "xterm"  ]] && export TERM=xterm-256color
 
-# print system info
-#command -v neofetch &> /dev/null && neofetch
-
-#
 # fix wrong language setting
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
