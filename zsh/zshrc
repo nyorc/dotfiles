@@ -28,6 +28,8 @@ plugins=(
     git
     golang
     nvm
+    python
+    kubectl
     #thefuck
     #yarn
     #vagrant
