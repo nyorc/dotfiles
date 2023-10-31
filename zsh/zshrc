@@ -44,3 +44,8 @@ source $ZSH/oh-my-zsh.sh
 # fix wrong language setting
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
+# load .zshrc.local if exist
+if [ -e "$HOME/.zshrc.local" ]; then
+    source "$HOME/.zshrc.local"
+fi
