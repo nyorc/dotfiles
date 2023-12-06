@@ -7,7 +7,9 @@ if [ -d "/usr/local/go/" ]; then
     export PATH="$PATH:$(go env GOPATH)/bin"
     export GO111MODULE=on
 fi
-if [ -e "/usr/local/bin/go" ]; then
+
+# set golang env in brew install position
+if [ -e "/opt/homebrew/bin/go" ]; then
     export PATH="$PATH:$(go env GOROOT)/bin"
     export PATH="$PATH:$(go env GOPATH)/bin"
     export GO111MODULE=on
