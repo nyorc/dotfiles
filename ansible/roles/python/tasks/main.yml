@@ -3,4 +3,5 @@
   pip:
     name: "{{ item }}"
     state: present
+    # executable: pip3.12
   with_items: "{{ python_packages }}"
