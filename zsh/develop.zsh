@@ -33,6 +33,16 @@ if [ -d "$HOME/.local/bin" ]; then
     fi
 fi
 
+# set gcloud env
+if [ -e "/opt/homebrew/bin/gcloud" ]; then
+    # enable zsh completion for gcloud
+    source $(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc
+
+    # Increasing the IAP TCP upload bandwidth
+    # https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
+    export CLOUDSDK_PYTHON_SITEPACKAGES=1
+fi
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
