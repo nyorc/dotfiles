@@ -18,6 +18,7 @@ Plug 'godlygeek/tabular'
 Plug 'shougo/denite.nvim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " file explorer
 Plug 'Shougo/defx.nvim'
@@ -62,7 +63,7 @@ Plug 'elzr/vim-json'
 Plug 'alvan/vim-closetag'
 Plug 'plasticboy/vim-markdown'
 Plug 'cespare/vim-toml'
-Plug 'stephpy/vim-yaml'
+"Plug 'stephpy/vim-yaml'
 Plug 'smancill/conky-syntax.vim'
 
 " golang
@@ -406,6 +407,12 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " Better Whitespace {{{
 let g:strip_whitespace_on_save = 1
 let g:better_whitespace_filetypes_blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
+" }}}
+
+" Indent Guides {{{
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size=1
+let g:indent_guides_start_level=2
 " }}}
 
 " vim-go golang {{{

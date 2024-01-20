@@ -1,0 +1,13 @@
+---
+- name: Make sure config folder existed
+  file:
+    path: ~/.config/yamllint
+    state: directory
+    mode: 0700
+
+- name: Link yamllint config
+  file:
+    src: ~/.dotfiles/yamllint/config
+    dest: ~/.config/yamllint/config
+    state: link
+    mode: 0600
