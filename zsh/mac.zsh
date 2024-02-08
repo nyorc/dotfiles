@@ -6,16 +6,16 @@ if [ "$(uname -s)" != "Darwin" ]; then
 fi
 
 # gnu coreutils
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 # gnu sed
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
 # gnu tar
-export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
 
 # gnu which
-export PATH="/usr/local/opt/gnu-which/libexec/gnubin:$PATH"
+PATH="/opt/homebrew/opt/gnu-which/libexec/gnubin:$PATH"
 
 # fix gnu ls no color
 if [[ -z "$LS_COLORS" ]]; then
