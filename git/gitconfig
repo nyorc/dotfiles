@@ -1,0 +1,74 @@
+# vim: set ft=gitconfig:
+
+[user]
+    name = nyo
+    email = nyo4rdace@gmail.com
+
+[include]
+    path = ~/.gitconfig.local
+[core]
+    editor = vim
+    quotepath = false
+    autocrlf = input
+    excludesfile = ~/.gitignore
+    pager = diff-so-fancy | less --tabs=4 -RFX
+
+[branch]
+    autosetuprebase = always
+[diff]
+    algorithm = patience
+[log]
+    date = local
+[merge]
+    tool = vimdiff
+    log = true
+    summary = true
+[push]
+    default = simple
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    log = auto
+    status = auto
+    ui = true
+    pager = true
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+[color "diff"]
+    meta = yellow
+    frag = magenta bold
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+
+[alias]
+    # graph log
+    lga = log --graph --pretty=format:'%Cred%h %C(bold blue)<%an>%Creset %s %C(yellow)%d %Cgreen(%cr) %Cblue(%cd)%Creset' --abbrev-commit --all
+    lg = log --graph --pretty=format:'%Cred%h %C(bold blue)<%an>%Creset %s %C(yellow)%d %Cgreen(%cr) %Cblue(%cd)%Creset' --abbrev-commit
+    lg-nc = log --graph --pretty=format:'%h <%an>% %s %d (%cr) (%cd)' --abbrev-commit
+    l5 = log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --since=5day
+    today = log --no-merges --after='yesterday 23:59'
+
+    # status
+    s = status --short --branch
+    st = status
+
+    # commit
+    c = commit
+    amend = commit --amend
+
+    # summary of repo
+    count = shortlog -sn --no-merges
+
+    #
+    co = checkout
+    sf = show --pretty=\"format:\" --name-only
+    up = pull -p
+    pl-fo = pull --ff-only
+    mg-nf = merge --no-ff
+    remotes = remote -v

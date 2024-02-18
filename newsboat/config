@@ -1,0 +1,99 @@
+# newsboat config
+# vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
+
+# General {
+#
+auto-reload yes
+reload-time 120
+reload-threads 8
+download-retries 4
+download-timeout 10
+
+prepopulate-query-feeds yes
+cleanup-on-quit yes
+notify-screen yes
+confirm-exit yes
+
+browser "google-chrome"
+player "mpv"
+# }
+
+
+# display {
+#
+# 256 color chart
+# https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
+#
+#show-read-feeds no
+#show-read-articles no
+display-article-progress yes
+feed-sort-order lastupdated
+datetime-format %F
+text-width 80
+
+# old color
+#color listnormal cyan default
+#color listnormal_unread blue default
+#color listfocus black yellow standout bold
+#color listfocus_unread black yellow standout bold
+#color info color208 black bold
+#color article cyan default
+
+color background color188 color237
+color article color188 color237
+color info color223 color234
+color listnormal color23 default
+color listfocus color29 color234 bold
+color listnormal_unread color108 default
+color listfocus_unread color114 color234 bold
+
+highlight article "^Feed:.*" color174 color237
+highlight article "^Title:.*" color223 color237 bold
+highlight article "^Author:.*" color114 color237
+highlight article "^Link:.*" color116 color237
+highlight article "^Date:.*" color174 color237
+highlight article "\\[[0-9][0-9]*\\]" color66 color237 bold
+highlight article "\\[image [0-9][0-9]*\\]" color109 color237 bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" color66 color237 bold
+# }
+
+
+# navigation and key bindings {
+#
+goto-next-feed no
+
+unbind-key C feedlist
+
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+bind-key d pagedown
+bind-key u pageup
+
+bind-key G end
+bind-key g home
+
+bind-key a toggle-article-read
+bind-key n next-unread
+bind-key N prev-unread
+bind-key U show-urls
+bind-key D pb-download
+bind-key x pb-delete
+
+bind-key s sort
+bind-key S rev-sort
+# }
+
+# macro {
+#
+macro , open-in-browser
+macro w set browser "w3m"; open-in-browser ; set browser "firefox %u"
+macro i set browser "feh %u"; open ; set browser "firefox %u"
+
+# copy url to clipboard "yank"
+macro y set browser "echo -n %u | xclip -selection clipboard"; open-in-browser ; set browser $BROWSER
+# }
+

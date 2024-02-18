@@ -1,0 +1,41 @@
+tasks:
+    vim:
+        links:
+            - [".vimrc", "vim/vimrc"]
+    zsh:
+        links:
+            - [".zshrc", "zsh/zshrc"]
+    tmux:
+        links:
+            - [".tmux.conf", "tmux/tmux.conf"]
+    git:
+        links:
+            - [".gitconfig", "git/gitconfig"]
+            - [".gitignore", "git/gitignore"]
+    neofetch:
+        links:
+            - [".config/neofetch/config.conf", "neofetch/config.conf"]
+    Linux:
+        deps:
+            - vim
+            - zsh
+            - git
+            - tmux
+            #- neofetch
+        links:
+            #- [".bashrc"]
+            #- [".bash_aliases"]
+            #- [".profile"]
+            - [".config/Code/User/settings.json", "vscode/settings.json"]
+            - [".newsboat/config", "newsboat/config"]
+    Darwin:
+        deps:
+            - vim
+            - zsh
+            - git
+            - tmux
+        links:
+            - ["Library/Application Support/Code/User/settings.json", "vscode/settings.json"]
+    unknow:
+        cmds:
+            - ["echo", "can't install dotfile in unknow OS."]
