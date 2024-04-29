@@ -187,7 +187,7 @@ else
 endif
 " }}}
 
-" FileType {{{
+" Set FileType {{{
 autocmd BufNewFile,BufRead .eslintrc set filetype=json
 autocmd BufNewFile,BufRead .babelrc set filetype=json
 autocmd BufNewFile,BufRead *.vue setlocal filetype=vue
@@ -226,6 +226,19 @@ if has('persistent_undo')
     endif
 endif
 " }}}
+
+" Folding {{{
+set foldmethod=syntax
+set foldlevel=1
+set nofoldenable
+set foldtext=MyFoldText()
+function MyFoldText()
+  let line = getline(v:foldstart)
+  let sub = substitute(line, '/\*\|\*/\|{{{\d\=', '', 'g')
+  return v:folddashes .. sub
+endfunction
+" }}}
+
 
 " # Plugin settings
 
