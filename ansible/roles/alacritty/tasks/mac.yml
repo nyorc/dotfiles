@@ -7,7 +7,7 @@
 
 - name: Link alacritty
   file:
-    src: ~/.dotfiles/alacritty/alacritty.mac.yml
-    dest: ~/.config/alacritty/alacritty.yml
+    src: ~/.dotfiles/alacritty/alacritty.mac.toml
+    dest: ~/.config/alacritty/alacritty.toml
     state: link
     mode: 0644
