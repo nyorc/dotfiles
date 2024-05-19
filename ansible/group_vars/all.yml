@@ -21,6 +21,7 @@ homebrew_packages:
   - eza
   - youtube-dl
   - git-delta
+  - tlrc # tldr rust client
 
 homebrew_cask_packages:
   - google-chrome
