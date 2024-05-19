@@ -41,6 +41,7 @@ Plug 'benmills/vimux-golang'
 " colorscheme
 "Plug 'fatih/molokai'
 Plug 'morhetz/gruvbox'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 " lint
 Plug 'w0rp/ale'
@@ -180,8 +181,11 @@ nnoremap <Leader>vr :<C-U>source $MYVIMRC<CR>
 " }}}
 
 " Color {{{
-if isdirectory(expand("~/.vim/plugged/gruvbox/"))
-    colorscheme gruvbox
+"if isdirectory(expand("~/.vim/plugged/gruvbox/"))
+    "colorscheme gruvbox
+if isdirectory(expand("~/.vim/plugged/catppuccin/"))
+    set termguicolors
+    colorscheme catppuccin_macchiato
 else
     colorscheme slate
 endif
@@ -328,7 +332,8 @@ endfunction
 
 " Airline {{{
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'cool'
+"let g:airline_theme = 'cool'
+let g:airline_theme = 'catppuccin_macchiato'
 "let g:airline_left_sep='⟩'  " Slightly fancier than '>'
 "let g:airline_right_sep='⟨' " Slightly fancier than '<'
 
