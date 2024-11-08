@@ -233,8 +233,8 @@ endif
 
 " Folding {{{
 set foldmethod=syntax
-set foldlevel=1
-set nofoldenable
+set foldlevel=99
+"set nofoldenable
 set foldtext=MyFoldText()
 function MyFoldText()
   let line = getline(v:foldstart)
