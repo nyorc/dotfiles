@@ -400,7 +400,7 @@ let g:ale_lint_on_text_changed = 'never'
 
 let g:ale_linters = {
 "\   'php': ['phpcs'],
-\   'go': ['gopls', 'gofmt', 'go build', 'golangci-lint'],
+\   'go': ['gopls', 'gofmt', 'go build'],
 \   'yaml.ansible': ['ansible-lint'],
 \   }
 let g:ale_fixers = {
