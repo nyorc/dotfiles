@@ -167,6 +167,7 @@ autocmd FileType json setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType vue setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd FileType proto setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd FileType markdown setlocal tabstop=2 shiftwidth=2 expandtab
 
 let mapleader = ',' " Replace leader to ',', default leader is '\'
 
