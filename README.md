@@ -43,6 +43,11 @@ $ sudo apt install python3-pip
 $ pip3 install ansible
 ```
 
+install modules
+```
+$ ansible-galaxy collection install community.general
+```
+
 ## Install dotfiles
 
 clone dotfiles repo
