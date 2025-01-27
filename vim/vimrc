@@ -310,7 +310,7 @@ function! s:ddu_my_settings() abort
     nnoremap <buffer><silent> r
         \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
     nnoremap <buffer><silent> N
-        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'new_file'})<CR>
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'newFile'})<CR>
     nnoremap <buffer><silent> yy
         \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'yank'})<CR>
 endfunction
