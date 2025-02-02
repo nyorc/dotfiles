@@ -1,5 +1,5 @@
 " vimrc
-" vim: set sw=4 ts=4 sts=4 et tw=80 foldlevel=0 foldmethod=marker :
+" vim: set sw=2 ts=2 sts=2 et tw=80 foldlevel=0 foldmethod=marker :
 
 set nocompatible        " Must be first line
 
@@ -20,18 +20,22 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'nathanaelkane/vim-indent-guides'
 
-" ddu
+" denops
 Plug 'vim-denops/denops.vim'
+
+" ddu
 Plug 'Shougo/ddu.vim'
 Plug 'Shougo/ddu-ui-filer'
+Plug 'Shougo/ddu-ui-ff'
 Plug 'Shougo/ddu-source-file'
+Plug 'Shougo/ddu-source-file_rec'
+Plug 'shun/ddu-source-buffer'
+Plug 'Shougo/ddu-source-register'
 Plug 'Shougo/ddu-kind-file'
+Plug 'Shougo/ddu-kind-word'
 Plug 'Shougo/ddu-column-filename'
+Plug 'Shougo/ddu-filter-matcher_substring'
 
-" file explorer
-Plug 'Shougo/defx.nvim'
-Plug 'kristijanhusak/defx-git'
-Plug 'kristijanhusak/defx-icons'
 
 " git
 Plug 'airblade/vim-gitgutter'
@@ -251,19 +255,20 @@ function MyFoldText()
   return v:folddashes .. sub
 endfunction
 " }}}
+" }}}
 
 
 " # Plugin settings
 
 " ddu {{{
-nnoremap <silent> <leader>w <Cmd>call ddu#start(#{ name: 'files', searchPath: expand('%:p'), })<CR>
+" ddu-filer {{{
+nnoremap <silent> <space>e <Cmd>call ddu#start(#{ name: 'files', searchPath: expand('%:p'), })<CR>
+
 call ddu#custom#patch_local('files', #{
     \   ui: 'filer',
     \   sync: v:true,
     \   actionOptions: #{
-    \     narrow: #{
-    \       quit: v:false,
-    \     },
+    \     narrow: #{ quit: v:false },
     \   },
     \   uiParams: #{
     \     filer: #{
@@ -290,114 +295,99 @@ call ddu#custom#patch_local('files', #{
 
 autocmd FileType ddu-filer call s:ddu_my_settings()
 function! s:ddu_my_settings() abort
-    nnoremap <buffer><silent><expr> <CR>
-        \ ddu#ui#get_item()->get('isTree', v:false) ?
-        \ "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>" :
-        \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
-    nnoremap <buffer><silent> <Space>
-        \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
-        "\ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
-    nnoremap <buffer><silent> o
-        \ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
-    nnoremap <buffer><silent> q
-        \ <Cmd>call ddu#ui#do_action('quit')<CR>
-    nnoremap <buffer><silent> c
-        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'copy'})<CR>
-    nnoremap <buffer><silent> p
-        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'paste'})<CR>
-    nnoremap <buffer><silent> d
-        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'delete'})<CR>
-    nnoremap <buffer><silent> r
-        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
-    nnoremap <buffer><silent> N
-        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'newFile'})<CR>
-    nnoremap <buffer><silent> yy
-        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'yank'})<CR>
+  nnoremap <buffer><expr> <CR>
+      \ ddu#ui#get_item()->get('isTree', v:false)
+      \ ? "<Cmd>call ddu#ui#do_action('expandItem', #{ mode: 'toggle' })<CR>"
+      \ : "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
+  nnoremap <buffer><expr> l
+        \   ddu#ui#get_item()->get('isTree', v:false)
+        \ ? "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>"
+        \ : "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
+  nnoremap <buffer> h
+        \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow', params: #{ path: '..' } })<CR>
+  nnoremap <buffer> o
+      \ <Cmd>call ddu#ui#do_action('expandItem', #{ mode: 'toggle' })<CR>
+  nnoremap <buffer> <Space>
+      \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
+  nnoremap <buffer> A
+      \ <Cmd>call ddu#ui#do_action('inputAction')<CR>
+  nnoremap <buffer> q
+      \ <Cmd>call ddu#ui#do_action('quit')<CR>
+  nnoremap <buffer> c
+      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'copy'})<CR>
+  nnoremap <buffer> p
+      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'paste'})<CR>
+  nnoremap <buffer> d
+      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'delete'})<CR>
+  nnoremap <buffer> r
+      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'rename'})<CR>
+  nnoremap <buffer> N
+      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'newFile'})<CR>
+  nnoremap <buffer> yy
+      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'yank'})<CR>
+  nnoremap <buffer> P
+      \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
 endfunction
 " }}}
 
-" defx {{{
-"nnoremap <silent> <leader>e :<C-U>Defx<CR>
-"nnoremap <silent> <leader>e :<C-U>Defx `escape(expand('%:p:h'), ' :')` -search-recursive=`expand('%:p')`<CR>
-nnoremap <silent> <leader>e :<C-U>Defx `getcwd()` -search-recursive=`expand('%:p')`<CR>
+" ddu-ff {{{
+nnoremap <silent> <space>f <Cmd>call ddu#start(#{ name: 'ff' })<CR>
+nnoremap <silent> <space>b <Cmd>call ddu#start(#{ name: 'ff', sources: [#{ name: 'buffer' }] })<CR>
+nnoremap <silent> <space>r <Cmd>call ddu#start(#{ name: 'register' })<CR>
 
-call defx#custom#option('_', {
-    \ 'buffer_name': 'tabfx',
-    \ 'listed': 1,
-    \ 'show_ignored_files': 1,
-    \ 'resume': 1,
-    \ 'columns': 'indent:mark:icon:icons:filename:git:size',
+call ddu#custom#patch_local('ff', #{
+    \   ui: 'ff',
+    \   sources: [#{ name: 'file_rec', params: {} }],
+    \   sourceOptions: #{
+    \     _: #{
+    \       matchers: ['matcher_substring'],
+    \     },
+    \   },
+    \   kindOptions: #{
+    \     file: #{
+    \       defaultAction: 'open',
+    \     },
+    \   },
     \ })
 
-call defx#custom#column('icon', {
-    \ 'directory_icon': '▸',
-    \ 'opened_icon': '▾',
-    \ 'root_icon': '+',
+call ddu#custom#patch_local('register', #{
+    \   ui: 'ff',
+    \   sources: [#{ name: 'register' }],
+    \   kindOptions: #{
+    \     word: #{
+    \       defaultAction: 'append',
+    \     },
+    \   },
     \ })
 
-call defx#custom#column('mark', {
-    \ 'readonly_icon': '✗',
-    \ 'selected_icon': '✓',
-    \ })
-
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-    " Define mappings
-    nnoremap <silent><buffer><expr> <CR>
-        \ defx#do_action('open')
-    nnoremap <silent><buffer><expr> c
-        \ defx#do_action('copy')
-    nnoremap <silent><buffer><expr> m
-        \ defx#do_action('move')
-    nnoremap <silent><buffer><expr> p
-        \ defx#do_action('paste')
-    nnoremap <silent><buffer><expr> l
-        \ defx#is_directory() ? defx#do_action('open') : 0
-    nnoremap <silent><buffer><expr> E
-        \ defx#do_action('open', 'vsplit')
-    nnoremap <silent><buffer><expr> P
-        \ defx#do_action('preview')
-    nnoremap <silent><buffer><expr> o
-        \ defx#do_action('open_tree', 'toggle')
-    nnoremap <silent><buffer><expr> K
-        \ defx#do_action('new_directory')
-    nnoremap <silent><buffer><expr> N
-        \ defx#do_action('new_file')
-    nnoremap <silent><buffer><expr> M
-        \ defx#do_action('new_multiple_files')
-    nnoremap <silent><buffer><expr> d
-        \ defx#do_action('remove')
-    nnoremap <silent><buffer><expr> r
-        \ defx#do_action('rename')
-    nnoremap <silent><buffer><expr> !
-        \ defx#do_action('execute_command')
-    nnoremap <silent><buffer><expr> yy
-        \ defx#do_action('yank_path')
-    nnoremap <silent><buffer><expr> .
-        \ defx#do_action('toggle_ignored_files')
-    nnoremap <silent><buffer><expr> h
-        \ defx#do_action('cd', ['..'])
-    nnoremap <silent><buffer><expr> cd
-        \ defx#do_action('cd', getcwd())
-    nnoremap <silent><buffer><expr> q
-        \ defx#do_action('quit')
-    nnoremap <silent><buffer><expr> <Space>
-        \ defx#do_action('toggle_select') . 'j'
-    nnoremap <silent><buffer><expr> *
-        \ defx#do_action('toggle_select_all')
-    nnoremap <silent><buffer><expr> j
-        \ line('.') == line('$') ? 'gg' : 'j'
-    nnoremap <silent><buffer><expr> k
-        \ line('.') == 1 ? 'G' : 'k'
-    nnoremap <silent><buffer><expr> <C-r>
-        \ defx#do_action('redraw')
-    nnoremap <silent><buffer><expr> <C-g>
-        \ defx#do_action('print')
-    nnoremap <silent><buffer><expr> v
-        \ defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
-    nnoremap <silent><buffer><expr> f
-        \ defx#do_action('search', expand('%:p:h'))
+autocmd FileType ddu-ff :call s:ddu_ff_my_settings()
+function! s:ddu_ff_my_settings() abort
+  nnoremap <buffer> <CR>
+      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'default' })<CR>
+  nnoremap <buffer> l
+      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>"
+  nnoremap <buffer> h
+      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow', params: #{ path: '..' } })<CR>
+  nnoremap <buffer> <Space>
+      \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
+  nnoremap <buffer> <C-r>
+      \ <Cmd>call ddu#ui#do_action('redraw')<CR>
+  nnoremap <buffer> A
+      \ <Cmd>call ddu#ui#do_action('inputAction')<CR>
+  nnoremap <buffer> i
+      \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
+  nnoremap <buffer> q
+      \ <Cmd>call ddu#ui#do_action('quit')<CR>
+  nnoremap <buffer> a
+      \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
+  nnoremap <buffer> c
+      \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'cd'})<CR>
+  nnoremap <buffer> d
+      \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'delete'})<CR>
+  nnoremap <buffer> P
+      \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
 endfunction
+" }}}
 " }}}
 
 " Airline {{{
@@ -423,6 +413,9 @@ xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
+"let g:neosnippet#enable_completed_snippet = 1
+"let g:neosnippet#expand_word_boundary = 1
+"let g:neosnippet#enable_complete_done = 1
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
