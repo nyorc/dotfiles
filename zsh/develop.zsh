@@ -10,7 +10,6 @@ fi
 
 # set golang env in brew install position
 if [ -e "/opt/homebrew/bin/go" ]; then
-    export PATH="$PATH:$(go env GOROOT)/bin"
     export PATH="$PATH:$(go env GOPATH)/bin"
     export GO111MODULE=on
 fi
@@ -33,18 +32,15 @@ if [ -d "$HOME/.local/bin" ]; then
     fi
 fi
 
-# set gcloud env
-if [ -e "/opt/homebrew/bin/gcloud" ]; then
+if (( $+commands[gcloud] )); then
     # enable zsh completion for gcloud
-    source $(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc
+    if [[ -d "$(brew --prefix)/share/google-cloud-sdk/" ]]; then
+        # brew already set the path
+        # source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+        source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+    fi
 
     # Increasing the IAP TCP upload bandwidth
     # https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
     export CLOUDSDK_PYTHON_SITEPACKAGES=1
 fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
