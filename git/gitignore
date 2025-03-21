@@ -11,9 +11,13 @@ node_g
 /.project
 /.cproject
 /.idea
-/.DS_Store
 /.vscode
 
 public/docs/
 
 _autocomplete.php
+
+# macos general file
+.DS_Store
+.AppleDouble
+.LSOverride
