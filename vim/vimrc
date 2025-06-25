@@ -111,6 +111,7 @@ Plug 'hashivim/vim-hashicorp-tools'
 
 " Copilot
 Plug 'github/copilot.vim'
+Plug 'DanBradbury/copilot-chat.vim'
 call plug#end()
 " }}}
 
@@ -681,4 +682,13 @@ augroup END
 
 " Terraform {{{
 let g:terraform_fmt_on_save=1
+" }}}
+
+
+" Copilot Chat {{{
+" Open a new Cpilot Chat window
+nnoremap <space>cc :CopilotChatOpen<CR>
+
+" Add visual selection to copilot window
+vmap <space>a <Plug>CopilotChatAddSelection
 " }}}
