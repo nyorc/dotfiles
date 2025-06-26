@@ -1,5 +1,0 @@
----
-- name: Install git with brew
-  homebrew:
-    name: git
-    state: present

@@ -1,67 +1,63 @@
 # Dotfiles
 
-nyorc's dotfiles.
-
-manage dotfiles with Ansible, works with mac and ubuntu
+nyorc's dotfiles. Manage dotfiles on mac and debian.
 
 [TOC]
 
----
-
 ## Requirements
 
-- homebrew (mac)
-- git
-- ansible
+- Git
+- GNU Make
+- GNU Stow
+- Homebrew (macOS)
+- apt (Debian)
 
-### Mac
-install homebrew on mac
+### macOS
+
+Install homewbrew
 ```bash
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-install git on mac
+Install git, make, stow
 ```bash
-$ brew install git
+$ brew install git make stow
 ```
 
-install ansible on mac
+Replace macOS default make with GNU make
+```
+PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+```
+
+#### Debian/Ubuntu
+
+Install git, make, stow
 ```bash
-$ brew install ansible
-```
-
-### Debian / Ubuntu
-
-install git
-```bash
-$ sudo apt install git
-```
-
-install ansible on debian/ubuntu
-```bash
-$ sudo apt install python3-pip
-$ pip3 install ansible
-```
-
-install modules
-```
-$ ansible-galaxy collection install community.general
+$ sudo apt update && sudo apt install -y git make stow
 ```
 
 ## Install dotfiles
 
-clone dotfiles repo
+Clone dotfiles repository
 ```bash
-$ git clone git@github.com:nyorc/dotfiles.git .dotfiles
+$ git clone git@github.com:nyorc/dotfiles.git ~/.dotfiles
 ```
 
-## Usage
+## Stow Dotfile Naming Convention
 
-```bash
-$ cd ansible
-$ ansible-playbook dotfiles.yml
-```
+When using `stow --dotfiles`, Stow automatically converts file names:
+- Files prefixed with `dot-` become files prefixed with `.`
+- Example: `dot-gitconfig` → `~/.gitconfig`
+- Example: `dot-zshrc` → `~/.zshrc`
+
+This avoids issues with hidden files in version control and makes dotfiles visible in the repository.
+
+## Previously Used Tools
+
+- [homemaker](https://github.com/FooSoft/homemaker): No longer maintained by the author. It was convenient to define dotfile deployment with TOML, but adding extra commands or variables made it more complex and harder to maintain.
+- Ansible: Very powerful and can handle all tasks, but the maintenance cost is high. Simple shell commands become more complicated as you need to find the right module, and testing requires meeting both the module's requirements and the system environment.
 
 ## Reference
 
 - https://brew.sh/
+- https://www.gnu.org/software/stow/manual/stow.html

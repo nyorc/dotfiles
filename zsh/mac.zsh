@@ -17,6 +17,9 @@ PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
 # gnu which
 PATH="/opt/homebrew/opt/gnu-which/libexec/gnubin:$PATH"
 
+# gnu make
+PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+
 # fix gnu ls no color
 if [[ -z "$LS_COLORS" ]]; then
   (( $+commands[dircolors] )) && eval "$(dircolors -b)"
