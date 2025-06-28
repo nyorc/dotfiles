@@ -33,13 +33,20 @@ install_cli() {
 
     CLI_APPS=(
         stow
+        git
         curl
         tmux
+        zsh
         lm-sensors
         jq
         dnsutils
         bat
-        ripgrep # rg
+        fd-find # fd alternative to find
+        ncdu # du alternative
+        ripgrep # rg alternative to grep
+
+        # TODO eza may not in apt repository
+        # eza # ls alternative
 
         # vim
         vim-nox

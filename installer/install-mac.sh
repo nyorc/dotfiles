@@ -19,48 +19,72 @@ install_cli() {
     requirement_check
 
     CLI_APPS=(
-        "stow"
-        "git"
-        "bash"
-        "coreutils"
-        "findutils" # find, xargs, etc.
-        "gnu-tar"
-        "gnu-sed"
-        "less"
-        "make"
-        "watch"
-        "gawk"
-        "grep"
-        "gzip"
-        "wget"
-        "jq"
-        "bat"
-        "eza"
-        "youtube-dl"
-        "ripgrep" # rg
+        stow
+        git
+        bash
+        zsh
+        zsh-completions
+        coreutils
+        findutils # find, xargs, etc.
+        gnu-tar
+        gnu-sed
+        less
+        make
+        watch
+        gawk
+        grep
+        gzip
+        wget
+        jq
+        bat
+        eza
+        youtube-dl
+        ripgrep # rg
+
+        # vim
+        vim
+        universal-ctags
 
         # TUI
-        "htop"
-        "tig"
+        htop
+        tig
 
         # tmux
-        "tmux"
+        tmux
         # reattach-to-user-namespace
         # tmux exits with [exited] on mac os x
         # https://superuser.com/questions/397076/tmux-exits-with-exited-on-mac-os-x
-        "reattach-to-user-namespace"
-        "tmux-mem-cpu-load"
+        reattach-to-user-namespace
+        tmux-mem-cpu-load
     )
 
     echo "Installing CLI applications: ${CLI_APPS[*]}"
     brew install "${CLI_APPS[@]}"
+
+    # vim plugins
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 install_cask() {
     requirement_check
 
     CASK_APPS=(
-        "alacritty"
+        alacritty
+        google-chrome
+        firefox
+        telegram-desktop
+        visual-studio-code
+        keepingyouawake
+        keycastr
+        rectangle
+        scroll-reverser
+        mpv
+
+        # unuse now
+        # keepassxc
+        # insomnia
+        # joplin
     )
 
     echo "Installing CASK applications: ${CASK_APPS[*]}"
