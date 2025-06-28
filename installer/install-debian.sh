@@ -19,8 +19,8 @@ install_gnome() {
     requirement_check
 
     GNOME_APPS=(
-        "gnome-shell"
-        "gnome-tweaks"
+        gnome-shell
+        gnome-tweaks
     )
 
     sudo apt update
@@ -32,19 +32,22 @@ install_cli() {
     requirement_check
 
     CLI_APPS=(
-        "stow"
-        "curl"
-        "tmux"
-        "jq"
-
+        stow
+        curl
+        tmux
+        lm-sensors
+        jq
+        dnsutils
+        bat
+        ripgrep # rg
 
         # vim
         vim-nox
         universal-ctags
 
         # TUI
-        "htop"
-        "tig"
+        htop
+        tig
     )
 
     sudo apt update
@@ -60,7 +63,10 @@ install_gui() {
     requirement_check
 
     GUI_APPS=(
-        "alacritty"
+        alacritty
+        xclip
+        feh
+        firefox-esr
     )
 
     sudo apt update
