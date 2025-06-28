@@ -33,11 +33,27 @@ install_cli() {
 
     CLI_APPS=(
         "stow"
+        "curl"
+        "tmux"
+        "jq"
+
+
+        # vim
+        vim-nox
+        universal-ctags
+
+        # TUI
+        "htop"
+        "tig"
     )
 
     sudo apt update
     echo "Installing CLI applications: ${CLI_APPS[*]}"
     sudo apt install -y "${CLI_APPS[@]}"
+
+    # vim plugins
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 install_gui() {
