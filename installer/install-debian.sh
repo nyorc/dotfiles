@@ -64,6 +64,9 @@ install_cli() {
     # vim plugins
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    # zsh
+    chsh -s $(which zsh)
 }
 
 install_gui() {
