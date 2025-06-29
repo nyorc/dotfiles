@@ -1,7 +1,0 @@
----
-- name: Install php with Homebrew
-  homebrew:
-    name:
-      - php
-      - composer
-    state: present

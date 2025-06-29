@@ -1,7 +1,0 @@
-- name: Print infomation
-  hosts: localhost
-  tasks:
-    - name: Print all available facts
-      ansible.builtin.debug:
-        # referece: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_vars_facts.html
-        var: ansible_facts
