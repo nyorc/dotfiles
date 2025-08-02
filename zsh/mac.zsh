@@ -25,8 +25,3 @@ if [[ -z "$LS_COLORS" ]]; then
   (( $+commands[dircolors] )) && eval "$(dircolors -b)"
 fi
 ls --color -d . &>/dev/null && alias ls='ls --color=tty'
-
-notify() {
-    osascript -e "display notification \"$1\" with title \"Notification!\""
-}
-
