@@ -32,6 +32,11 @@ if [ -d "$HOME/.local/bin" ]; then
     fi
 fi
 
+# set nodenv env
+if [[ -s ~/.nodenv/bin/nodenv ]]; then
+    eval "$(~/.nodenv/bin/nodenv init - --no-rehash zsh)"
+fi
+
 if (( $+commands[gcloud] )); then
     # enable zsh completion for gcloud
     if [[ -d "$(brew --prefix)/share/google-cloud-sdk/" ]]; then
