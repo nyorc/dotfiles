@@ -44,12 +44,14 @@ install_cli() {
         fd-find # fd alternative to find
         ncdu # du alternative
         ripgrep # rg alternative to grep
+        git-delta # A syntax-highlighting pager for git, diff, grep, and blame output
 
         # TODO eza may not in apt repository
         # eza # ls alternative
 
         # vim
         vim-nox
+        vim-gtk3 # +clipboard
         universal-ctags
 
         # TUI
@@ -62,11 +64,16 @@ install_cli() {
     sudo apt install -y "${CLI_APPS[@]}"
 
     # vim plugins
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    if [ ! -f ~/.vim/autoload/plug.vim ]; then
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    fi
 
     # zsh
-    chsh -s $(which zsh)
+    current_shell=$(getent passwd "$USER" | cut -d: -f7)
+    if [ "$current_shell" != "$(which zsh)" ]; then
+        chsh -s $(which zsh)
+    fi
 }
 
 install_gui() {
