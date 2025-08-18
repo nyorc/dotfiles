@@ -1,9 +1,9 @@
 " vimrc
 " vim: set sw=2 ts=2 sts=2 et tw=80 foldlevel=0 foldmethod=marker :
 
-set nocompatible        " Must be first line
+set nocompatible " use Vim settings, rather than Vi settings. must be first
 
-" Plug menu {{{
+" ## Plugin {{{
 call plug#begin('~/.vim/plugged')
 
 " basic
@@ -90,52 +90,114 @@ Plug 'DanBradbury/copilot-chat.vim'
 call plug#end()
 " }}}
 
-" General {{{
-set background=dark             " Assume a dark background
-set mouse=a                     " Automatically enable mouse usage
-set mousehide                   " Hide the mouse cursor while typing
-set showcmd                     " Show partial commands in status line and
-set ruler                       " Show the ruler
-set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
-set laststatus=2                " 2: always
-set updatetime=100
-
-set showmode
-set backspace=indent,eol,start  " Backspace for dummies
-set linespace=0                 " No extra spaces between rows
-set cursorline                  " Highlight the screen line of the cursor with CursorLine
-set number                      " Line numbers on
-set relativenumber
-set showmatch                   " Show matching brackets/parenthesis
-
-" search:
-set incsearch                   " Find as you type search
-set hlsearch                    " Highlight search terms
-set ignorecase                  " Case insensitive search
-set smartcase                   " Case sensitive when uc present
-
-set wildmenu                    " Show list instead of just completing
-set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
-set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-set history=1000                " Store a ton of history (default is 20)
-set hidden                      " Allow buffer switching without saving
-set list
+" ## Basic {{{
+" display
+set number                                     " display line number
+set relativenumber                             " disply relative line number
+set nowrap                                     " no display longer line on next line
+set display=truncate                           " Show @@@ in the last line if it is truncated
+set list                                       " Show whitespace characters
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+
+" status line
+set showcmd                     " display incomplete commands
+set ruler                       " display the cursor position all the time
+set laststatus=2                " 2: always display status line
+" set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+
+" cursor, moving
+set showmode                  " Show the current mode in the status line
+set cursorline                " Highlight the screen line of the cursor with CursorLine
+set scrolloff=5               " Show a few lines of context around the cursor.
+set whichwrap=b,s,h,l,<,>,[,] " Backspace and cursor keys wrap too
+set showmatch                 " Show matching brackets/parenthesis
+
+" search
+set incsearch  " do incremental searching when it's possible to timeout.
+set hlsearch   " highlight search terms
+set ignorecase " case insensitive search
+set smartcase  " case sensitive when search upper case characters
+
+" command
+set history=1000                " Store a ton of history (default is 20)
+set wildmenu                    " Menu completion in command mode on <Tab>
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+
+set hidden                      " Allow buffer switching without saving
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current
 
-" Default fileformat.
-set fileformat=unix
-" Automatic recognition of a new line cord.
-set fileformats=unix,dos,mac"
+" typing
+set ttimeout        " time out for key codes
+set ttimeoutlen=100 " wait up to 100ms after Esc for special key
 
-set nowrap                      " Do not wrap long lines
+" fileformat
+set fileformat=unix " Use Unix file format by default
+set fileformats=unix,dos,mac " Try Unix, then DOS, then Mac
+
+set nrformats-=octal " Don't recognize octal numbers for Ctrl-A and Ctrl-X
+
+" Don't use Q for Ex mode, use it for formatting.  Except for Select mode.
+" Revert with ":unmap Q".
+map Q gq
+sunmap Q
+
+" mouse
+if has('mouse')
+  if &term =~ 'xterm'
+    set mouse=a
+  else
+    set mouse=nvi
+  endif
+endif
+
+" Put these in an autocmd group, so that you can revert them with:
+" ":augroup vimStartup | exe 'au!' | augroup END"
+augroup vimStartup
+  au!
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid, when inside an event handler
+  " (happens when dropping a file on gvim) and for a commit message (it's
+  " likely a different one than last time).
+  autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+    \ |   exe "normal! g`\""
+    \ | endif
+augroup END
+
+filetype plugin indent on        " Automatically detect file types.
+syntax on                        " Enable syntax highlighting
+
+" indent
 set autoindent                  " Indent at the same level of the previous line
-set shiftwidth=4                " Use indents of 4 spaces
-set expandtab                   " Tabs are spaces, not tabs
 set tabstop=4                   " An indentation every four columns
 set softtabstop=4               " Let backspace delete indent
+set shiftwidth=4                " Use indents of 4 spaces
+set expandtab                   " Tabs are spaces, not tabs
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+
+" folding
+set foldmethod=syntax
+set foldlevel=99
+" set nofoldenable
+set foldtext=MyFoldText()
+function! MyFoldText()
+  let prefix = '+'
+  let dash = repeat('>', v:foldlevel)
+  let line = getline(v:foldstart)
+  let nl = v:foldend - v:foldstart + 1
+  return prefix . dash . line . ' <<< ' . nl . ' |'
+endfunction
+
+" indent for specific filetype
+autocmd FileType vim setlocal ts=2 sts=2 sw=2 et
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2 et
+autocmd FileType html setlocal ts=2 sts=2 sw=2 et
+autocmd FileType json setlocal ts=2 sts=2 sw=2 et
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 et
+autocmd FileType markdown setlocal ts=2 sts=2 sw=2 et
+autocmd FileType vue setlocal ts=2 sts=2 sw=2 et
+autocmd FileType proto setlocal ts=2 sts=2 sw=2 et
 
 if has('clipboard')
     if has('unnamedplus')
@@ -145,18 +207,18 @@ if has('clipboard')
     endif
 endif
 
-filetype plugin indent on        " Automatically detect file types.
-syntax on                        " Syntax highlighting
+" color
+set background=dark             " Assume a dark background
+set termguicolors
+if isdirectory(expand("~/.vim/plugged/gruvbox/"))
+  colorscheme gruvbox
+else
+  colorscheme desert
+endif
 
-" set tab
-autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
-autocmd FileType html setlocal tabstop=2 shiftwidth=2 expandtab
-autocmd FileType json setlocal tabstop=2 shiftwidth=2 expandtab
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType vue setlocal tabstop=2 shiftwidth=2 expandtab
-autocmd FileType proto setlocal tabstop=2 shiftwidth=2 expandtab
-autocmd FileType markdown setlocal tabstop=2 shiftwidth=2 expandtab
+" }}}
 
+" ## mappings {{{
 let mapleader = ',' " Replace leader to ',', default leader is '\'
 
 " Clean searching highlight
@@ -166,21 +228,9 @@ nnoremap \ :noh<cr>
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
 nnoremap <Leader>vr :<C-U>source $MYVIMRC<CR>
-
 " }}}
 
-" Color {{{
-set termguicolors
-if isdirectory(expand("~/.vim/plugged/gruvbox/"))
-    colorscheme gruvbox
-"if isdirectory(expand("~/.vim/plugged/catppuccin/"))
-    "colorscheme catppuccin_macchiato
-else
-    colorscheme slate
-endif
-" }}}
-
-" Set FileType {{{
+" ## Set FileType {{{
 autocmd BufNewFile,BufRead .eslintrc set filetype=json
 autocmd BufNewFile,BufRead .babelrc set filetype=json
 autocmd BufNewFile,BufRead *.vue setlocal filetype=vue
@@ -193,8 +243,9 @@ augroup ansible_vim_fthosts
 augroup END
 " }}}
 
-" Directory of swap, backup and undo {{{
+" ## swap, backup and undo {{{
 " store swapfiles in a central location
+set updatetime=100
 set directory=~/.vim/tmp/swap//
 if !isdirectory(&directory)
   call mkdir(&directory, 'p')
@@ -220,22 +271,9 @@ if has('persistent_undo')
 endif
 " }}}
 
-" Folding {{{
-set foldmethod=syntax
-set foldlevel=99
-"set nofoldenable
-set foldtext=MyFoldText()
-function MyFoldText()
-  let line = getline(v:foldstart)
-  let sub = substitute(line, '/\*\|\*/\|{{{\d\=', '', 'g')
-  return v:folddashes .. sub
-endfunction
-" }}}
-" }}}
-
 " # Plugin settings
 
-" fzf {{{
+" ## fzf {{{
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.6, 'yoffset': 1.0 } }
 
 nnoremap <silent> <Leader>b <Cmd>Buffers<CR>
@@ -244,13 +282,12 @@ nnoremap <silent> <Leader>g <Cmd>GFiles?<CR>
 nnoremap <silent> <Leader>/ <Cmd>RG<CR>
 " }}}
 
-
-" netrw {{{
+" ## netrw {{{
 let g:netrw_liststyle = 3
 nnoremap <silent> <space>e <Cmd>Explore<CR>
 " }}}
 
-" Airline {{{
+" ## Airline {{{
 let g:airline_powerline_fonts = 1
 "let g:airline_theme = 'cool'
 let g:airline_theme = 'gruvbox'
@@ -265,7 +302,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 " }}}
 
-" LSP {{{
+" ## LSP {{{
 autocmd User LspSetup call lsp#options#OptionsSet(#{
   \   aleSupport: v:true,
   \   completionMatcher: 'icase',
@@ -317,7 +354,7 @@ endfunction
 
 " }}}
 
-" Neosnippet {{{
+" ## Neosnippet {{{
 " key mappings
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
