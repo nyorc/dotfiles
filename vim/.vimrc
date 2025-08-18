@@ -10,32 +10,22 @@ call plug#begin('~/.vim/plugged')
 Plug 'majutsushi/tagbar'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'jiangmiao/auto-pairs'
-Plug 'vim-scripts/matchit.zip'
+" Plug 'vim-scripts/matchit.zip'
 Plug 'luochen1990/rainbow'
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
-Plug 'shougo/denite.nvim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'nathanaelkane/vim-indent-guides'
 
-" denops
-Plug 'vim-denops/denops.vim'
+Plug 'tpope/vim-vinegar'
 
-" ddu
-Plug 'Shougo/ddu.vim'
-Plug 'Shougo/ddu-ui-filer'
-Plug 'Shougo/ddu-ui-ff'
-Plug 'Shougo/ddu-source-file'
-Plug 'Shougo/ddu-source-file_rec'
-Plug 'shun/ddu-source-buffer'
-Plug 'Shougo/ddu-source-register'
-Plug 'Shougo/ddu-kind-file'
-Plug 'Shougo/ddu-kind-word'
-Plug 'Shougo/ddu-column-filename'
-Plug 'Shougo/ddu-filter-matcher_substring'
+Plug 'girishji/vimcomplete'
+Plug 'yegappan/lsp'
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " git
 Plug 'airblade/vim-gitgutter'
@@ -59,17 +49,9 @@ Plug 'morhetz/gruvbox'
 Plug 'w0rp/ale'
 
 " autocomplete
-Plug 'honza/vim-snippets'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+" Plug 'honza/vim-snippets'
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet-snippets'
 
 " languages
 Plug 'elzr/vim-json'
@@ -77,22 +59,20 @@ Plug 'alvan/vim-closetag'
 Plug 'plasticboy/vim-markdown'
 Plug 'cespare/vim-toml'
 "Plug 'stephpy/vim-yaml'
-Plug 'smancill/conky-syntax.vim'
+Plug 'uarun/vim-protobuf'
 
 " golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-Plug 'uarun/vim-protobuf'
 
 " php
 "Plug 'StanAngeloff/php.vim', { 'for': 'php' }
 "Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
-"Plug 'kristijanhusak/deoplete-phpactor'
 "Plug '2072/php-indenting-for-vim', {'for': 'php'}
 
 " javascript jsx
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+"　Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
 " html css
 Plug 'cakebaker/scss-syntax.vim'
@@ -101,13 +81,7 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'ekalinin/Dockerfile.vim'
 
 " ansible
-Plug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; ./generate.py' }
-
-" python
-Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
-
-" Terraform
-Plug 'hashivim/vim-hashicorp-tools'
+" Plug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; ./generate.py' }
 
 " Copilot
 Plug 'github/copilot.vim'
@@ -258,137 +232,21 @@ endfunction
 " }}}
 " }}}
 
-
 " # Plugin settings
 
-" ddu {{{
-" ddu-filer {{{
-nnoremap <silent> <space>e <Cmd>call ddu#start(#{ name: 'files', searchPath: expand('%:p'), })<CR>
+" fzf {{{
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.6, 'yoffset': 1.0 } }
 
-call ddu#custom#patch_local('files', #{
-    \   ui: 'filer',
-    \   sync: v:true,
-    \   actionOptions: #{
-    \     narrow: #{ quit: v:false },
-    \   },
-    \   uiParams: #{
-    \     filer: #{
-    \       winWidth: 40,
-    \       split: 'vertical',
-    \       splitDirection: 'topleft',
-    \       sortTreesFirst: v:true,
-    \       sort: 'filename',
-    \       previewSplit: 'vertical',
-    \     },
-    \   },
-    \   sources: [#{ name: 'file', params: {} }],
-    \   sourceOptions: #{
-    \     _: #{
-    \       columns: ['filename'],
-    \     },
-    \   },
-    \   kindOptions: #{
-    \     file: #{
-    \       defaultAction: 'open',
-    \     },
-    \   },
-    \ })
-
-autocmd FileType ddu-filer call s:ddu_my_settings()
-function! s:ddu_my_settings() abort
-  nnoremap <buffer><expr> <CR>
-      \ ddu#ui#get_item()->get('isTree', v:false)
-      \ ? "<Cmd>call ddu#ui#do_action('expandItem', #{ mode: 'toggle' })<CR>"
-      \ : "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
-  nnoremap <buffer><expr> l
-        \   ddu#ui#get_item()->get('isTree', v:false)
-        \ ? "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>"
-        \ : "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'open' })<CR>"
-  nnoremap <buffer> h
-        \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow', params: #{ path: '..' } })<CR>
-  nnoremap <buffer> o
-      \ <Cmd>call ddu#ui#do_action('expandItem', #{ mode: 'toggle' })<CR>
-  nnoremap <buffer> <Space>
-      \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
-  nnoremap <buffer> A
-      \ <Cmd>call ddu#ui#do_action('inputAction')<CR>
-  nnoremap <buffer> q
-      \ <Cmd>call ddu#ui#do_action('quit')<CR>
-  nnoremap <buffer> c
-      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'copy'})<CR>
-  nnoremap <buffer> p
-      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'paste'})<CR>
-  nnoremap <buffer> d
-      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'delete'})<CR>
-  nnoremap <buffer> r
-      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'rename'})<CR>
-  nnoremap <buffer> N
-      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'newFile'})<CR>
-  nnoremap <buffer> yy
-      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'yank'})<CR>
-  nnoremap <buffer> P
-      \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
-endfunction
+nnoremap <silent> <Leader>b <Cmd>Buffers<CR>
+nnoremap <silent> <Leader>f <Cmd>Files<CR>
+nnoremap <silent> <Leader>g <Cmd>GFiles?<CR>
+nnoremap <silent> <Leader>/ <Cmd>RG<CR>
 " }}}
 
-" ddu-ff {{{
-nnoremap <silent> <space>f <Cmd>call ddu#start(#{ name: 'ff' })<CR>
-nnoremap <silent> <space>b <Cmd>call ddu#start(#{ name: 'ff', sources: [#{ name: 'buffer' }] })<CR>
-nnoremap <silent> <space>r <Cmd>call ddu#start(#{ name: 'register' })<CR>
 
-call ddu#custom#patch_local('ff', #{
-    \   ui: 'ff',
-    \   sources: [#{ name: 'file_rec', params: {} }],
-    \   sourceOptions: #{
-    \     _: #{
-    \       matchers: ['matcher_substring'],
-    \     },
-    \   },
-    \   kindOptions: #{
-    \     file: #{
-    \       defaultAction: 'open',
-    \     },
-    \   },
-    \ })
-
-call ddu#custom#patch_local('register', #{
-    \   ui: 'ff',
-    \   sources: [#{ name: 'register' }],
-    \   kindOptions: #{
-    \     word: #{
-    \       defaultAction: 'append',
-    \     },
-    \   },
-    \ })
-
-autocmd FileType ddu-ff :call s:ddu_ff_my_settings()
-function! s:ddu_ff_my_settings() abort
-  nnoremap <buffer> <CR>
-      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'default' })<CR>
-  nnoremap <buffer> l
-      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow' })<CR>"
-  nnoremap <buffer> h
-      \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow', params: #{ path: '..' } })<CR>
-  nnoremap <buffer> <Space>
-      \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
-  nnoremap <buffer> <C-r>
-      \ <Cmd>call ddu#ui#do_action('redraw')<CR>
-  nnoremap <buffer> A
-      \ <Cmd>call ddu#ui#do_action('inputAction')<CR>
-  nnoremap <buffer> i
-      \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
-  nnoremap <buffer> q
-      \ <Cmd>call ddu#ui#do_action('quit')<CR>
-  nnoremap <buffer> a
-      \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
-  nnoremap <buffer> c
-      \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'cd'})<CR>
-  nnoremap <buffer> d
-      \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'delete'})<CR>
-  nnoremap <buffer> P
-      \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
-endfunction
-" }}}
+" netrw {{{
+let g:netrw_liststyle = 3
+nnoremap <silent> <space>e <Cmd>Explore<CR>
 " }}}
 
 " Airline {{{
@@ -406,6 +264,58 @@ let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 " }}}
 
+" LSP {{{
+autocmd User LspSetup call lsp#options#OptionsSet(#{
+  \   aleSupport: v:true,
+  \   completionMatcher: 'icase',
+  \ })
+
+if (executable('pylsp'))
+  autocmd User LspSetup call lsp#lsp#AddServer([#{
+        \   name: 'pylsp',
+        \   filetype: ['python'],
+        \   path: 'pylsp',
+        \ }])
+endif
+
+if (executable('gopls'))
+  autocmd User LspSetup call lsp#lsp#AddServer([#{
+        \   name: 'gopls',
+        \   filetype: ['go', 'gomod', 'gohtmltmpl', 'gotexttmpl'],
+        \   path: 'gopls',
+        \   args: ['-remote=auto']
+        \ }])
+endif
+
+if executable('vim-language-server')
+  autocmd User LspSetup call lsp#lsp#AddServer([#{name: 'vimls',
+   \   filetype: ['vim'],
+   \   path: 'vim-language-server',
+   \   args: ['--stdio'],
+   \   initialization_options: #{
+   \     vimruntime: $VIMRUNTIME,
+   \     runtimepath: &rtp,
+   \   }
+   \ }])
+endif
+
+autocmd User LspAttached call s:on_lsp_enabled()
+function! s:on_lsp_enabled() abort
+  if exists('+tagfunc') | setlocal tagfunc=lsp#lsp#TagFunc | endif
+
+  nnoremap <buffer> gd <Cmd>LspGotoDefinition<CR>
+  nnoremap <buffer> gi <Cmd>LspPeekImpl<CR>
+  nnoremap <buffer> gt <Cmd>LspGotoTypeDef<CR>
+  nnoremap <buffer> gr <Cmd>LspPeekReferences<CR>
+  nnoremap <buffer> gD <Cmd>LspGotoDeclaration<CR>
+  nnoremap <buffer> gs <Cmd>LspDocumentSymbol<CR>
+  nnoremap <buffer> K <Cmd>LspHover<CR>
+  nnoremap <buffer> <leader>rn <Cmd>LspRename<CR>
+  nnoremap <buffer> <leader>o <Cmd>vert belowright 50LspOutline<CR>
+endfunction
+
+" }}}
+
 " Neosnippet {{{
 " key mappings
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -413,7 +323,7 @@ smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
+" let g:neosnippet#enable_snipmate_compatibility = 1
 "let g:neosnippet#enable_completed_snippet = 1
 "let g:neosnippet#expand_word_boundary = 1
 "let g:neosnippet#enable_complete_done = 1
@@ -426,45 +336,22 @@ if has('conceal')
 endif
 " }}}
 
-" Deoplete {{{
-let g:deoplete#enable_at_startup = 1
-
-" omni_patterns
-"set completeopt+=noinsert,noselect
-"call deoplete#custom#option('omni_patterns', {
-"\ 'go': '[^. *\t]\.\w*',
-"\})
-
 " Tab Select behavior.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
 " close preview window
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
-" }}}
-
-" Enable omni completion {{{
-" TODO: integration with Deoplete
-" https://github.com/Shougo/deoplete.nvim/wiki/Completion-Sources
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-" }}}
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 
 " Ale {{{
 "let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 'never'
-
+" let g:ale_go_gopls_options = '-remote=auto' " Use gopls with remote mode
 let g:ale_linters = {
-"\   'php': ['phpcs'],
-\   'go': ['gopls', 'gofmt', 'go build'],
+\   'go': ['gofmt', 'go build'],
 \   'yaml.ansible': ['ansible-lint'],
 \   }
 let g:ale_fixers = {
@@ -499,6 +386,7 @@ let g:indent_guides_start_level=2
 " }}}
 
 " vim-go golang {{{
+let g:go_code_completion_enabled = 0 " Use lsp completion
 " highlight
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -525,25 +413,6 @@ au FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 
 " close tag {{{
 let g:closetag_filetypes = 'html,jsx,javascript'
-" }}}
-
-" Tabularize {{{
-nmap <Leader>a& :Tabularize /&<CR>
-vmap <Leader>a& :Tabularize /&<CR>
-nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-nmap <Leader>a=> :Tabularize /=><CR>
-vmap <Leader>a=> :Tabularize /=><CR>
-nmap <Leader>a: :Tabularize /:<CR>
-vmap <Leader>a: :Tabularize /:<CR>
-nmap <Leader>a:: :Tabularize /:\zs<CR>
-vmap <Leader>a:: :Tabularize /:\zs<CR>
-nmap <Leader>a, :Tabularize /,<CR>
-vmap <Leader>a, :Tabularize /,<CR>
-nmap <Leader>a,, :Tabularize /,\zs<CR>
-vmap <Leader>a,, :Tabularize /,\zs<CR>
-nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 " }}}
 
 " TagBar {{{
@@ -611,63 +480,6 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_new_list_item_indent = 2
 " }}}
 
-" Denite {{{
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
-endfunction
-
-autocmd FileType denite-filter call s:denite_filter_my_settings()
-function! s:denite_filter_my_settings() abort
-  imap <silent><buffer> <C-c> <Plug>(denite_filter_quit)
-endfunction
-
-nnoremap <silent> <leader>b :<C-u>Denite buffer<CR>
-nnoremap <silent> <leader>/ :<C-u>Denite grep -no-empty<CR>
-nnoremap <silent> <leader>f :<C-u>Denite -start-filter file/rec<CR>
-nnoremap <silent> <leader>o :<C-u>Denite outline<CR>
-nnoremap <silent> <leader>h :<C-u>Denite help<CR>
-nnoremap <silent> <leader>r :<C-u>Denite register<CR>
-nnoremap <silent> <leader>l :<C-u>Denite line<CR>
-nnoremap <silent> <leader>! :<C-u>Denite -resume<CR>
-nnoremap <silent> <leader>m :<C-u>Denite menu<CR>
-
-call denite#custom#map('insert', '<C-[>', '<denite:enter_mode:normal>', 'noremap')
-call denite#custom#map('normal', '<C-[>', '<denite:quit>', 'noremap')
-
-" Add custom menus
-let s:menus = {}
-
-let s:menus.zsh = {
-    \ 'description': 'Edit zsh configuration'
-    \ }
-let s:menus.zsh.file_candidates = [
-    \ ['zshrc', '~/.zshrc'],
-    \ ]
-let s:menus.vim = {
-    \ 'description': 'Edit vimrc'
-    \ }
-let s:menus.vim.file_candidates = [
-    \ ['vimrc', '~/.vimrc'],
-    \ ]
-call denite#custom#var('menu', 'menus', s:menus)
-
-call denite#custom#alias('source', 'git', 'file/rec')
-call denite#custom#var('git', 'command',
-          \ ['git', 's'])
-" }}}
-
 " Phpactor {{{
 augroup PhpactorMappings
     au!
@@ -679,11 +491,6 @@ augroup PhpactorMappings
     au FileType php nmap <buffer> gd :PhpactorGotoDefinition<CR>
 augroup END
 " }}}
-
-" Terraform {{{
-let g:terraform_fmt_on_save=1
-" }}}
-
 
 " Copilot Chat {{{
 " Open a new Cpilot Chat window
