@@ -142,6 +142,14 @@ unset key
 # Load customize p10k prompt
 [[ ! -f ~/.dotfiles/p10k/p10k.zsh ]] || source ~/.dotfiles/p10k/p10k.zsh
 
+# Load fzf completion if fzf is installed
+if [[ -s ~/.fzf/bin/fzf ]]; then
+    if [[ ! "$PATH" == */home/nyo/.fzf/bin* ]]; then
+      PATH="${PATH:+${PATH}:}/home/nyo/.fzf/bin"
+    fi
+    source <(fzf --zsh)
+fi
+
 # import my functions
 if [[ -s "$HOME/.dotfiles/zsh/functions.zsh" ]]; then
     source "$HOME/.dotfiles/zsh/functions.zsh"
