@@ -144,8 +144,8 @@ unset key
 
 # Load fzf completion if fzf is installed
 if [[ -s ~/.fzf/bin/fzf ]]; then
-    if [[ ! "$PATH" == */home/nyo/.fzf/bin* ]]; then
-      PATH="${PATH:+${PATH}:}/home/nyo/.fzf/bin"
+    if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
+      PATH="${PATH:+${PATH}:}$HOME/.fzf/bin"
     fi
     source <(fzf --zsh)
 fi

@@ -24,7 +24,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'girishji/vimcomplete'
 Plug 'yegappan/lsp'
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 
 " git
