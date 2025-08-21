@@ -24,7 +24,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'girishji/vimcomplete'
 Plug 'yegappan/lsp'
 
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 
@@ -44,7 +43,6 @@ Plug 'benmills/vimux-golang'
 " colorscheme
 "Plug 'fatih/molokai'
 Plug 'morhetz/gruvbox'
-"Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 " lint
 Plug 'w0rp/ale'
@@ -65,24 +63,11 @@ Plug 'uarun/vim-protobuf'
 " golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 
-" php
-"Plug 'StanAngeloff/php.vim', { 'for': 'php' }
-"Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
-"Plug '2072/php-indenting-for-vim', {'for': 'php'}
-
-" javascript jsx
-" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-"　Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
-
 " html css
 Plug 'cakebaker/scss-syntax.vim'
 
 " docker
 Plug 'ekalinin/Dockerfile.vim'
-
-" ansible
-" Plug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; ./generate.py' }
 
 " Copilot
 Plug 'github/copilot.vim'
@@ -289,7 +274,6 @@ nnoremap <silent> <space>e <Cmd>Explore<CR>
 
 " ## Airline {{{
 let g:airline_powerline_fonts = 1
-"let g:airline_theme = 'cool'
 let g:airline_theme = 'gruvbox'
 "let g:airline_left_sep='⟩'  " Slightly fancier than '>'
 "let g:airline_right_sep='⟨' " Slightly fancier than '<'
@@ -385,12 +369,10 @@ endif
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 
 " Ale {{{
-"let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 " let g:ale_go_gopls_options = '-remote=auto' " Use gopls with remote mode
 let g:ale_linters = {
 \   'go': ['gofmt', 'go build'],
-\   'yaml.ansible': ['ansible-lint'],
 \   }
 let g:ale_fixers = {
   \   'javascript': ['eslint'],
@@ -516,18 +498,6 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_new_list_item_indent = 2
-" }}}
-
-" Phpactor {{{
-augroup PhpactorMappings
-    au!
-    au FileType php nmap <buffer> <Leader>mm :PhpactorContextMenu<CR>
-    au FileType php nmap <buffer> <Leader>nn :PhpactorNavigate<CR>
-    au FileType php nmap <buffer> <Leader>Oh :PhpactorGotoDefinitionHsplit<CR>
-    au FileType php nmap <buffer> <Leader>tt :PhpactorTransform<CR>
-    au FileType php nmap <buffer> <Leader>cc :PhpactorClassNew<CR>
-    au FileType php nmap <buffer> gd :PhpactorGotoDefinition<CR>
-augroup END
 " }}}
 
 " Copilot Chat {{{
