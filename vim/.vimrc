@@ -288,6 +288,14 @@ let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 " }}}
 
+" ## vimcomplete {{{
+let customOptions = #{
+      \ completor: #{ shuffleEqualPriority: v:true, postfixHighlight: v:true  },
+      \ buffer: #{ priority: 10 },
+      \}
+autocmd VimEnter * call g:VimCompleteOptionsSet(customOptions)
+" }}}
+
 " ## LSP {{{
 autocmd User LspSetup call lsp#options#OptionsSet(#{
   \   aleSupport: v:true,
