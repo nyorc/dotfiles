@@ -1,7 +1,9 @@
-.PHONY: dotfiles dotfiles-git dotfiles-tmux dotfiles-vim dotfiles-alacritty dotfiles-zsh
+# 這裡放 stow 的組合指令
+# - 要刪除的話，請手動加上 -D 參數
+.PHONY: dotfiles dotfiles-git dotfiles-tmux dotfiles-vim dotfiles-alacritty dotfiles-zsh dotfiles-rime
 
-dotfiles: dotfiles-git dotfiles-tmux dotfiles-vim dotfiles-alacritty dotfiles-zsh
-	@echo "部署 Dotfiles 環境..."
+dotfiles: dotfiles-git dotfiles-tmux dotfiles-vim dotfiles-alacritty dotfiles-zsh dotfiles-rime
+	@echo "部署全部 Dotfiles"
 
 dotfiles-git:
 	@echo "部署 Git Dotfiles..."
@@ -31,3 +33,7 @@ dotfiles-alacritty:
 		echo "不支援的作業系統: $$(uname -s)"; \
 		exit 1; \
 	fi
+
+dotfiles-rime:
+	@echo "部署 Rime Dotfiles..."
+	stow -vv -t $$HOME/.config/ibus/rime rime
