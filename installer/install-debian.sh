@@ -21,6 +21,8 @@ install_gnome() {
     GNOME_APPS=(
         gnome-shell
         gnome-tweaks
+        font-manager
+        pcmanfm
     )
 
     sudo apt update
