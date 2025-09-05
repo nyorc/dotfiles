@@ -4,13 +4,11 @@ patch:
     - schema: liur
 
   # no fold_options
-  switcher:
-    fold_options: false
+  switcher/fold_options: false
 
   # 只使用 Shift 切換中英文模式
   # 使用 clear 清除已輸入的字元
-  ascii_composer:
-    switch_key:
+  ascii_composer/switch_key:
       Shift_L: clear
       Shift_R: clear
       Control_L: noop
