@@ -272,7 +272,7 @@ nnoremap <silent> <Leader>/ <Cmd>RG<CR>
 let g:netrw_liststyle = 3
 nnoremap <silent> <space>e <Cmd>Explore<CR>
 
-autocmd FileType netrw nnoremap <silent> qq <C-^>
+autocmd FileType netrw nnoremap <buffer><silent><nowait> q :bd<CR>
 " }}}
 
 " ## Airline {{{
