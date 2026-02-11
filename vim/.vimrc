@@ -541,6 +541,15 @@ nnoremap <space>cc :CopilotChatOpen<CR>
 vmap <space>a <Plug>CopilotChatAddSelection
 " }}}
 
+" Copy file path {{{
+" Copy relative file path to clipboard
+nnoremap <space>yp :let @+=expand('%')<CR>:echo 'Copied: ' . expand('%')<CR>
+" Copy file path:line to clipboard
+nnoremap <space>yl :let @+=expand('%') . ':' . line('.')<CR>:echo 'Copied: ' . expand('%') . ':' . line('.')<CR>
+" Copy file path:startline-endline to clipboard
+vnoremap <space>yp :<C-u>let @+=expand('%') . ':' . line("'<") . '-' . line("'>")<CR>:echo 'Copied range'<CR>
+" }}}
+
 " enable autoread files changed on disk
 set autoread
 
