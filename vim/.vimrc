@@ -519,6 +519,18 @@ map <Leader>vq :VimuxCloseRunner<CR>
 map <Leader>vx :VimuxInterruptRunner<CR>
 " Zoom the runner pane (use <bind-key> z to restore runner pane)
 map <Leader>vz :call VimuxZoomRunner()<CR>
+" Open an AI tool in a right-side pane, or focus it if already open
+function! s:VimuxAI(cmd)
+  if get(g:, 'VimuxRunnerIndex', '') ==? ''
+    let b:VimuxOrientation='h'
+    let b:VimuxHeight='50%'
+    silent call VimuxRunCommand(a:cmd)
+  else
+    silent call VimuxTmux("select-pane -t " . g:VimuxRunnerIndex)
+  endif
+endfunction
+nnoremap <silent> <Leader>vc :call <SID>VimuxAI("claude")<CR>
+nnoremap <silent> <Leader>vg :call <SID>VimuxAI("gemini")<CR>
 " }}}
 
 " JSON {{{
