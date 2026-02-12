@@ -53,3 +53,9 @@ if (( $+commands[gcloud] )); then
     # https://cloud.google.com/iap/docs/using-tcp-forwarding#increasing_the_tcp_upload_bandwidth
     export CLOUDSDK_PYTHON_SITEPACKAGES=1
 fi
+
+
+# load antigravity
+if [ -d "$HOME/.antigravity/antigravity/bin" ]; then
+    export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+fi
