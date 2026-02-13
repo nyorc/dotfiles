@@ -554,12 +554,13 @@ vmap <space>a <Plug>CopilotChatAddSelection
 " }}}
 
 " Copy file path {{{
+" use '%:.' to get relative path from current working directory
 " Copy relative file path to clipboard
-nnoremap <space>yp :let @+=expand('%')<CR>:echo 'Copied: ' . expand('%')<CR>
+nnoremap <space>yp :let @+=expand('%:.')<CR>:echo 'Copied: ' . expand('%:.')<CR>
 " Copy file path:line to clipboard
-nnoremap <space>yl :let @+=expand('%') . ':' . line('.')<CR>:echo 'Copied: ' . expand('%') . ':' . line('.')<CR>
+nnoremap <space>yl :let @+=expand('%:.') . ':' . line('.')<CR>:echo 'Copied: ' . expand('%:.') . ':' . line('.')<CR>
 " Copy file path:startline-endline to clipboard
-vnoremap <space>yp :<C-u>let @+=expand('%') . ':' . line("'<") . '-' . line("'>")<CR>:echo 'Copied range'<CR>
+vnoremap <space>yp :<C-u>let @+=expand('%:.') . ':' . line("'<") . '-' . line("'>")<CR>:echo 'Copied range'<CR>
 " }}}
 
 " enable autoread files changed on disk
