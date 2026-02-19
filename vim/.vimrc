@@ -531,6 +531,34 @@ function! s:VimuxAI(cmd)
 endfunction
 nnoremap <silent> <Leader>vc :call <SID>VimuxAI("claude")<CR>
 nnoremap <silent> <Leader>vg :call <SID>VimuxAI("gemini")<CR>
+
+" Send file path to AI pane so it can read the file itself
+function! s:VimuxSendPath(line1, line2, range)
+  if get(g:, 'VimuxRunnerIndex', '') ==? ''
+    call s:VimuxAI("claude")
+    sleep 500m
+  endif
+  let l:path = expand('%:.')
+  if a:range
+    let l:path .= ':' . a:line1 . '-' . a:line2
+  endif
+  call VimuxTmux("send-keys -l -t " . g:VimuxRunnerIndex . " " . shellescape(l:path . ' '))
+endfunction
+nnoremap <silent> <Leader>vs :call <SID>VimuxSendPath(0, 0, 0)<CR>
+vnoremap <silent> <Leader>vs :<C-u>call <SID>VimuxSendPath(line("'<"), line("'>"), 1)<CR>
+
+" Attach to an existing tmux pane as Vimux runner
+function! s:VimuxAttach()
+  let l:current = system('tmux display-message -p "#{pane_id}"')->trim()
+  let l:panes = systemlist('tmux list-panes -F "#{pane_id} #{pane_current_command}"')
+  call filter(l:panes, {_, v -> v !~# '^' . l:current})
+  call fzf#run(fzf#wrap({
+    \ 'source': l:panes,
+    \ 'sink': {sel -> execute('let g:VimuxRunnerIndex = "' . split(sel)[0] . '"')},
+    \ 'options': '--prompt="Attach pane> " --no-multi',
+    \ }))
+endfunction
+nnoremap <silent> <Leader>va :call <SID>VimuxAttach()<CR>
 " }}}
 
 " JSON {{{
@@ -555,12 +583,12 @@ vmap <space>a <Plug>CopilotChatAddSelection
 
 " Copy file path {{{
 " use '%:.' to get relative path from current working directory
-" Copy relative file path to clipboard
-nnoremap <space>yp :let @+=expand('%:.')<CR>:echo 'Copied: ' . expand('%:.')<CR>
-" Copy file path:line to clipboard
-nnoremap <space>yl :let @+=expand('%:.') . ':' . line('.')<CR>:echo 'Copied: ' . expand('%:.') . ':' . line('.')<CR>
-" Copy file path:startline-endline to clipboard
-vnoremap <space>yp :<C-u>let @+=expand('%:.') . ':' . line("'<") . '-' . line("'>")<CR>:echo 'Copied range'<CR>
+" copy relative file path to clipboard
+nnoremap <Leader>yf :let @+=expand('%:.')<CR>:echo 'Copied: ' . expand('%:.')<CR>
+" copy file path:line to clipboard
+nnoremap <Leader>yl :let @+=expand('%:.') . ':' . line('.')<CR>:echo 'Copied: ' . expand('%:.') . ':' . line('.')<CR>
+" copy file path:startline-endline to clipboard
+vnoremap <Leader>yf :<C-u>let @+=expand('%:.') . ':' . line("'<") . '-' . line("'>")<CR>:echo 'Copied range'<CR>
 " }}}
 
 " enable autoread files changed on disk
