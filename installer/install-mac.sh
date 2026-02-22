@@ -21,6 +21,7 @@ install_cli() {
     CLI_APPS=(
         stow
         git
+        git-delta
         bash
         zsh
         zsh-completions
