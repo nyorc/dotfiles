@@ -10,3 +10,6 @@ case "$(uname)" in
 esac
 
 [[ -f $p10k_file ]] && source $p10k_file
+
+# Load machine-specific overrides
+[[ -f ~/.p10k.local.zsh ]] && source ~/.p10k.local.zsh
