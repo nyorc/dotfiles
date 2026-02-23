@@ -72,7 +72,6 @@ Plug 'ekalinin/Dockerfile.vim'
 
 " Copilot
 Plug 'github/copilot.vim'
-Plug 'DanBradbury/copilot-chat.vim'
 call plug#end()
 " }}}
 
@@ -571,14 +570,6 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_new_list_item_indent = 2
-" }}}
-
-" Copilot Chat {{{
-" Open a new Cpilot Chat window
-nnoremap <space>cc :CopilotChatOpen<CR>
-
-" Add visual selection to copilot window
-vmap <space>a <Plug>CopilotChatAddSelection
 " }}}
 
 " Copy file path {{{
