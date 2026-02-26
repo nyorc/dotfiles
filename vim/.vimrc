@@ -268,8 +268,14 @@ nnoremap <silent> <Leader>/ <Cmd>RG<CR>
 " }}}
 
 " ## netrw {{{
-let g:netrw_liststyle = 3
-nnoremap <silent> <space>e <Cmd>Explore<CR>
+" Open netrw and position cursor on the current file,
+" because netrw's built-in cursor positioning is unreliable.
+function! s:ExploreHere()
+  let l:fname = expand('%:t')
+  Explore %:p:h
+  call search('\V' . l:fname, 'cw')
+endfunction
+nnoremap <silent> <space>e <Cmd>call <SID>ExploreHere()<CR>
 
 autocmd FileType netrw nnoremap <buffer><silent><nowait> q :bd<CR>
 " }}}
