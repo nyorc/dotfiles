@@ -28,3 +28,9 @@ alias sl='ls'
 if type bat > /dev/null; then
     alias cat='bat'
 fi
+
+# tmux
+if type tmux > /dev/null; then
+    alias txwork='tmux new-session -A -s work'
+    alias txcli='tmux new-session -A -s cli'
+fi
