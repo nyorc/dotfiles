@@ -259,7 +259,8 @@ endif
 " # Plugin settings
 
 " ## fzf {{{
-let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.6, 'yoffset': 1.0 } }
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.8, 'yoffset': 1.0 } }
+let g:fzf_preview_window = ['right,50%,<80(up,35%)', 'ctrl-/']
 
 nnoremap <silent> <Leader>b <Cmd>Buffers<CR>
 nnoremap <silent> <Leader>f <Cmd>Files<CR>
