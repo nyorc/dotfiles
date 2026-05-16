@@ -16,7 +16,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
+" Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'nathanaelkane/vim-indent-guides'
 
 Plug 'tpope/vim-vinegar'
@@ -78,7 +78,7 @@ call plug#end()
 " ## Basic {{{
 " display
 set number                                     " display line number
-set relativenumber                             " disply relative line number
+" set relativenumber                             " disply relative line number
 set nowrap                                     " no display longer line on next line
 set display=truncate                           " Show @@@ in the last line if it is truncated
 set list                                       " Show whitespace characters
@@ -577,6 +577,48 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_borderless_table = 1
+
+autocmd FileType markdown setlocal wrap linebreak breakindent
+autocmd FileType markdown let &l:showbreak = '↪ '
+
+" 切換 g:vim_markdown_conceal 後 syntax 需要重載才會生效
+function! s:ApplyMarkdownConceal(on) abort
+  let g:vim_markdown_conceal = a:on ? 1 : 0
+  let l:ft = &l:filetype
+  setlocal filetype=
+  let &l:filetype = l:ft
+endfunction
+
+" Reading mode: 兩側 padding window 把 markdown 內容夾置中，視覺寬度約 120 欄；
+" 進入時才打開 conceal（隱藏 ** __ 等 markup），退出時恢復為 raw 編輯體驗
+function! s:ToggleMarkdownReadingMode() abort
+  if exists('t:md_reading_mode') && t:md_reading_mode
+    let l:src = t:md_reading_main
+    for l:nr in range(winnr('$'), 1, -1)
+      if winbufnr(l:nr) != l:src
+        execute l:nr . 'wincmd c'
+      endif
+    endfor
+    call s:ApplyMarkdownConceal(0)
+    let t:md_reading_mode = 0
+    echo 'Markdown reading mode: OFF'
+  else
+    let l:pad = (winwidth(0) - 120) / 2
+    if l:pad < 4 | echo 'Window too narrow for reading mode' | return | endif
+    let t:md_reading_main = winbufnr(0)
+    call s:ApplyMarkdownConceal(1)
+    execute 'topleft ' . l:pad . 'vnew'
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nonumber norelativenumber nocursorline winfixwidth statusline=\
+    wincmd l
+    execute 'botright ' . l:pad . 'vnew'
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nonumber norelativenumber nocursorline winfixwidth statusline=\
+    wincmd h
+    let t:md_reading_mode = 1
+    echo 'Markdown reading mode: ON'
+  endif
+endfunction
+nnoremap <silent> <Leader>mr :call <SID>ToggleMarkdownReadingMode()<CR>
 " }}}
 
 " Copy file path {{{
