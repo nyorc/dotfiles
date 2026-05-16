@@ -41,6 +41,11 @@ if (( $+commands[nodenv] )); then
     eval "$(nodenv init - --no-rehash zsh)"
 fi
 
+# rust
+if [ -d ~/.cargo/bin ]; then
+    export PATH="$PATH:$HOME/.cargo/bin"
+fi
+
 if (( $+commands[gcloud] )); then
     # enable zsh completion for gcloud
     if [[ -d "$(brew --prefix)/share/google-cloud-sdk/" ]]; then
