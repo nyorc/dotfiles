@@ -64,3 +64,9 @@ fi
 if [ -d "$HOME/.antigravity/antigravity/bin" ]; then
     export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 fi
+
+# peon-ping (claude code hook) quick controls
+if [ -d "$HOME/.claude/hooks/peon-ping" ]; then
+    alias peon="bash $HOME/.claude/hooks/peon-ping/peon.sh"
+    [ -f "$HOME/.claude/hooks/peon-ping/completions.bash" ] && source "$HOME/.claude/hooks/peon-ping/completions.bash"
+fi
