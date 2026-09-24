@@ -1,7 +1,7 @@
 # mac.zsh
 # config and script collection for mac
 
-if [ "$(uname -s)" != "Darwin" ]; then
+if [[ $OSTYPE != darwin* ]]; then
     return
 fi
 
@@ -24,4 +24,3 @@ PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 if [[ -z "$LS_COLORS" ]]; then
   (( $+commands[dircolors] )) && eval "$(dircolors -b)"
 fi
-ls --color -d . &>/dev/null && alias ls='ls --color=tty'

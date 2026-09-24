@@ -4,13 +4,13 @@
 # set golang env
 if [ -d "/usr/local/go/" ]; then
     export PATH="$PATH:/usr/local/go/bin"
-    export PATH="$PATH:$(go env GOPATH)/bin"
+    export PATH="$PATH:${GOPATH:-$HOME/go}/bin"
     export GO111MODULE=on
 fi
 
 # set golang env in brew install position
 if [ -e "/opt/homebrew/bin/go" ]; then
-    export PATH="$PATH:$(go env GOPATH)/bin"
+    export PATH="$PATH:${GOPATH:-$HOME/go}/bin"
     export GO111MODULE=on
 fi
 
@@ -48,10 +48,10 @@ fi
 
 if (( $+commands[gcloud] )); then
     # enable zsh completion for gcloud
-    if [[ -d "$(brew --prefix)/share/google-cloud-sdk/" ]]; then
+    if [[ -d "${HOMEBREW_PREFIX:-/opt/homebrew}/share/google-cloud-sdk/" ]]; then
         # brew already set the path
-        # source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-        source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+        # source "${HOMEBREW_PREFIX:-/opt/homebrew}/share/google-cloud-sdk/path.zsh.inc"
+        source "${HOMEBREW_PREFIX:-/opt/homebrew}/share/google-cloud-sdk/completion.zsh.inc"
     fi
 
     # Increasing the IAP TCP upload bandwidth
