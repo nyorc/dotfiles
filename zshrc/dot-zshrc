@@ -118,6 +118,11 @@ fi
 if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
+# Dedupe fpath so login, non-login and nested shells produce the same compdump
+# fingerprint; otherwise the completion module rebuilds the cache on every switch.
+typeset -U fpath
+[[ -d /opt/homebrew/share/zsh/site-functions ]] && fpath[1,0]=/opt/homebrew/share/zsh/site-functions
+
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
