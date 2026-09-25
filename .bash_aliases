@@ -1,5 +1,6 @@
 # myip
-alias myip='wget -qO- ifconfig.co'
+# icanhazip.com is run by Cloudflare. Fallback: checkip.amazonaws.com (AWS official).
+alias myip='wget -qO- https://icanhazip.com'
 
 # go back x directories
 b() {

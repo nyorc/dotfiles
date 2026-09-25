@@ -2,7 +2,8 @@
 # aliases collections
 
 # myip
-alias myip='curl ifconfig.co'
+# icanhazip.com is run by Cloudflare. Fallback: checkip.amazonaws.com (AWS official).
+alias myip='curl -fsS https://icanhazip.com'
 
 alias c='clear'
 alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
