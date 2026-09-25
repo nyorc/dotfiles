@@ -15,9 +15,9 @@ alias parrot='curl parrot.live'
 
 # eza
 if type eza > /dev/null; then
-    alias ls='eza --icons'
-    alias ll='eza -lh --icons'
-    alias la='eza -lah --icons'
+    alias ls='eza --icons=auto'
+    alias ll='eza -lh --icons=auto'
+    alias la='eza -lah --icons=auto'
     alias lr='eza -lR'
 fi
 
