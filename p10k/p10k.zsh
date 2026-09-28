@@ -1,15 +1,14 @@
-# Load customize p10k prompt based on OS
+# Load shared p10k prompt, then OS-specific overrides
 #
+# p10k.base.zsh is wizard output kept verbatim so `p10k configure` can
+# regenerate it; per-OS differences live in the small override files.
 
-# base file
-p10k_file=~/.dotfiles/p10k/p10k.mac.zsh
+source ~/.dotfiles/p10k/p10k.base.zsh
 
 case $OSTYPE in
-    linux*) p10k_file=~/.dotfiles/p10k/p10k.linux.zsh ;;
-    darwin*|*) p10k_file=~/.dotfiles/p10k/p10k.mac.zsh ;;
+    darwin*) source ~/.dotfiles/p10k/p10k.mac.zsh ;;
+    linux*)  source ~/.dotfiles/p10k/p10k.linux.zsh ;;
 esac
-
-[[ -f $p10k_file ]] && source $p10k_file
 
 # Load machine-specific overrides
 [[ -f ~/.p10k.local.zsh ]] && source ~/.p10k.local.zsh
