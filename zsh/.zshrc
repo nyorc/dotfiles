@@ -1,4 +1,3 @@
-# vim: set ft=zsh:
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -156,23 +155,23 @@ if [[ -s ~/.fzf/bin/fzf ]]; then
 fi
 
 # import my functions
-if [[ -s "$HOME/.dotfiles/zsh/functions.zsh" ]]; then
-    source "$HOME/.dotfiles/zsh/functions.zsh"
+if [[ -s "$HOME/.zsh/functions.zsh" ]]; then
+    source "$HOME/.zsh/functions.zsh"
 fi
 
 # import my develop
-if [[ -s "$HOME/.dotfiles/zsh/develop.zsh" ]]; then
-    source "$HOME/.dotfiles/zsh/develop.zsh"
+if [[ -s "$HOME/.zsh/develop.zsh" ]]; then
+    source "$HOME/.zsh/develop.zsh"
 fi
 
 # import my aliases
-if [[ -s "$HOME/.dotfiles/zsh/aliases.zsh" ]]; then
-    source "$HOME/.dotfiles/zsh/aliases.zsh"
+if [[ -s "$HOME/.zsh/aliases.zsh" ]]; then
+    source "$HOME/.zsh/aliases.zsh"
 fi
 
 # import mac specific settings
-if [[ -s "$HOME/.dotfiles/zsh/mac.zsh" ]]; then
-    source "$HOME/.dotfiles/zsh/mac.zsh"
+if [[ -s "$HOME/.zsh/mac.zsh" ]]; then
+    source "$HOME/.zsh/mac.zsh"
 fi
 
 # load .zshrc.local if exist

@@ -16,22 +16,22 @@ dotfiles: dotfiles-git dotfiles-tmux dotfiles-vim dotfiles-alacritty dotfiles-zs
 .PHONY: dotfiles-git
 dotfiles-git: ## Deploy git dotfiles
 	@echo "Deploy git dotfiles"
-	stow -v -t $$HOME --dotfiles git
+	stow -v -t $$HOME git
 
 .PHONY: dotfiles-tmux
 dotfiles-tmux: ## Deploy tmux dotfiles
 	@echo "Deploy tmux dotfiles"
-	stow -v -t $$HOME --dotfiles tmux
+	stow -v -t $$HOME tmux
 
 .PHONY: dotfiles-vim
 dotfiles-vim: ## Deploy vim dotfiles
 	@echo "Deploy vim dotfiles"
-	stow -v -t $$HOME --dotfiles vim
+	stow -v -t $$HOME vim
 
 .PHONY: dotfiles-zsh
 dotfiles-zsh: ## Deploy zsh dotfiles
 	@echo "Deploy zsh dotfiles"
-	stow -v -t $$HOME --dotfiles zshrc
+	stow -v -t $$HOME zsh
 
 ALACRITTY_DOTFILE_DIR_Darwin := alacritty-mac
 ALACRITTY_DOTFILE_DIR_Linux  := alacritty-debian

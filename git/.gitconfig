@@ -1,5 +1,3 @@
-# vim: set ft=gitconfig:
-
 [user]
 	useConfigOnly = true
 
@@ -10,7 +8,7 @@
     editor = vim
     quotepath = false
     autocrlf = input
-    excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore_global
     pager = delta
 
 [diff]
