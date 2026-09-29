@@ -10,7 +10,7 @@ help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage: \n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  %-20s %s\n", $$1, $$2 } /^##@/ { printf "%s\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 .PHONY: dotfiles
-dotfiles: dotfiles-git dotfiles-tmux dotfiles-vim dotfiles-alacritty dotfiles-zsh dotfiles-rime ## Deploy all dotfiles
+dotfiles: dotfiles-git dotfiles-tmux dotfiles-vim dotfiles-alacritty dotfiles-zsh dotfiles-bash dotfiles-rime ## Deploy all dotfiles
 	@echo "Deploy all dotfiles"
 
 .PHONY: dotfiles-git
@@ -32,6 +32,11 @@ dotfiles-vim: ## Deploy vim dotfiles
 dotfiles-zsh: ## Deploy zsh dotfiles
 	@echo "Deploy zsh dotfiles"
 	stow -v -t $$HOME zsh
+
+.PHONY: dotfiles-bash
+dotfiles-bash: ## Deploy bash dotfiles
+	@echo "Deploy bash dotfiles"
+	stow -v -t $$HOME bash
 
 ALACRITTY_DOTFILE_DIR_Darwin := alacritty-mac
 ALACRITTY_DOTFILE_DIR_Linux  := alacritty-debian
