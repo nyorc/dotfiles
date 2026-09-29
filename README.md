@@ -60,3 +60,7 @@ $ git clone git@github.com:nyorc/dotfiles.git ~/.dotfiles
 
 - [homemaker](https://github.com/FooSoft/homemaker): 作者停止維護。使用 TOML 定義部署很方便，但加入額外指令後反而變得過於複雜。
 - Ansible: 幾乎可以處理所有工作的強大工具，但指令要找到對應的 module 並處理環境需求，維護成本過高。
+
+## 授權
+
+[MIT License](LICENSE)
