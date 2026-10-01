@@ -44,6 +44,14 @@ $ git clone git@github.com:nyorc/dotfiles.git ~/.dotfiles
 - `make dotfiles-<pkg>`：只部署單一套件
 - `make help`：列出所有 target
 
+## 安裝軟體
+
+`installer/install.sh` 會依照目前平台（Debian 或 macOS）安裝常用軟體：
+```bash
+$ installer/install.sh        # 列出目前平台可用的安裝目標
+$ installer/install.sh all    # 安裝 cli 和 gui
+```
+
 ## 專屬設定
 
 有專屬特定電腦的設定不需進 git 的，可以放在以下的 local 檔案：

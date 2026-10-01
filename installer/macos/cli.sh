@@ -1,0 +1,60 @@
+#!/bin/bash
+# 說明：安裝命令列工具（含 Go），並下載 vim-plug、把預設 shell 改成 zsh
+
+set -e
+
+PACKAGES=(
+    stow
+    git
+    git-delta
+    bash
+    zsh
+    zsh-completions
+    coreutils
+    findutils # find, xargs, etc.
+    gnu-tar
+    gnu-sed
+    less
+    make
+    watch
+    gawk
+    grep
+    gzip
+    wget
+    jq
+    bat
+    eza
+    ripgrep # rg
+    go
+
+    # vim
+    vim
+    universal-ctags
+
+    # TUI
+    htop
+    tig
+
+    # tmux
+    tmux
+    # tmux exits with [exited] on mac os x
+    # https://superuser.com/questions/397076/tmux-exits-with-exited-on-mac-os-x
+    reattach-to-user-namespace
+    tmux-mem-cpu-load
+)
+
+echo "Installing CLI packages: ${PACKAGES[*]}"
+brew install "${PACKAGES[@]}"
+
+# vim plugins
+if [ ! -f ~/.vim/autoload/plug.vim ]; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+# zsh: macOS has no getent, read the login shell from Directory Service.
+# Use the system zsh because Homebrew's zsh is not listed in /etc/shells.
+current_shell=$(dscl . -read "/Users/$USER" UserShell | awk '{print $2}')
+if [ "$(basename "$current_shell")" != "zsh" ]; then
+    chsh -s /bin/zsh
+fi
