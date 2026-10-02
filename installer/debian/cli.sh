@@ -17,9 +17,7 @@ PACKAGES=(
     ncdu # du alternative
     ripgrep # rg alternative to grep
     git-delta # A syntax-highlighting pager for git, diff, grep, and blame output
-
-    # TODO eza may not in apt repository
-    # eza # ls alternative
+    eza # ls alternative
 
     # vim
     vim-gtk3 # +clipboard
