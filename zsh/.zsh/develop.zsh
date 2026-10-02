@@ -5,13 +5,11 @@
 if [ -d "/usr/local/go/" ]; then
     export PATH="$PATH:/usr/local/go/bin"
     export PATH="$PATH:${GOPATH:-$HOME/go}/bin"
-    export GO111MODULE=on
 fi
 
 # set golang env in brew install position
 if [ -e "/opt/homebrew/bin/go" ]; then
     export PATH="$PATH:${GOPATH:-$HOME/go}/bin"
-    export GO111MODULE=on
 fi
 
 # set composer env
