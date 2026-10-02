@@ -1,22 +1,13 @@
 # vim: ft=gitignore
-vgcore.*
-.waf*
-.lock-wscript
-*.pyc
-doc/api.xml
-tmp/
-node
-node_g
+
+# vim
 .*.swp
-.benchmark_reports
+
+# IDE
 /.project
 /.cproject
 /.idea
 /.vscode
-
-public/docs/
-
-_autocomplete.php
 
 # macos general file
 .DS_Store
