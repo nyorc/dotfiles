@@ -25,9 +25,12 @@ fi
 # typo is not bad
 alias sl='ls'
 
-# bat
+# bat (Debian ships the binary as batcat)
 if type bat > /dev/null; then
     alias cat='bat'
+elif type batcat > /dev/null; then
+    alias bat='batcat'
+    alias cat='batcat'
 fi
 
 # tmux
