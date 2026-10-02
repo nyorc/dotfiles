@@ -6,7 +6,7 @@
 alias myip='curl -fsS https://icanhazip.com'
 
 alias c='clear'
-alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
+alias freq='fc -ln 1 | cut -f1 -d" " | sort | uniq -c | sort -nr | head -n 30'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
