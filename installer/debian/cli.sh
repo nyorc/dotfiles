@@ -25,6 +25,7 @@ PACKAGES=(
 
     # TUI
     htop
+    btop
     tig
 )
 
