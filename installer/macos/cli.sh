@@ -1,5 +1,5 @@
 #!/bin/bash
-# 說明：安裝命令列工具（含 Go），並下載 vim-plug、把預設 shell 改成 zsh
+# 說明：安裝命令列工具（含 Go），並下載 vim-plug、fzf，把預設 shell 改成 zsh
 
 set -e
 
@@ -52,6 +52,14 @@ brew install "${PACKAGES[@]}"
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+# fzf：.zshrc、vim、tmux 都從 ~/.fzf 找 fzf
+if [ ! -d ~/.fzf ]; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+fi
+if [ ! -x ~/.fzf/bin/fzf ]; then
+    ~/.fzf/install --bin
 fi
 
 # zsh: macOS has no getent, read the login shell from Directory Service.
