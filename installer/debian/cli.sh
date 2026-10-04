@@ -12,6 +12,7 @@ PACKAGES=(
     lm-sensors
     jq
     dnsutils
+    ufw
     bat
     fd-find # fd alternative to find
     ncdu # du alternative

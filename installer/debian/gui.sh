@@ -1,5 +1,5 @@
 #!/bin/bash
-# 說明：安裝圖形介面應用程式與 Hack Nerd Font
+# 說明：安裝圖形介面應用程式、Noto 字型與 Hack Nerd Font
 
 set -e
 
@@ -7,13 +7,22 @@ PACKAGES=(
     alacritty
     xclip
     feh
+    imv
+    mpv
     firefox-esr
+    ibus-rime
 
     # GNOME
     gnome-shell
     gnome-tweaks
+    network-manager
     font-manager
     pcmanfm
+
+    # fonts
+    fonts-noto-core
+    fonts-noto-cjk
+    fonts-noto-color-emoji
 )
 
 # 一小時內更新過套件清單就跳過，避免 install.sh all 連續執行 cli、gui 時重複 apt update。
