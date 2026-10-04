@@ -19,6 +19,22 @@ open_monitor() {
     tmux send-keys -t 4 'watch uptime' C-j
 }
 
+# Split this pane: claude left, vim (netrw) top-right, 20% shell bottom-right
+tldev() {
+    if [[ -z $TMUX ]]; then
+        echo "tldev: must run inside tmux" >&2
+        return 1
+    fi
+
+    local editor_pane
+    editor_pane=$(tmux split-window -h -d -P -F '#{pane_id}' -t "$TMUX_PANE" -c "$PWD")
+    tmux split-window -v -d -l 20% -t "$editor_pane" -c "$PWD"
+    tmux send-keys -t "$editor_pane" 'vim .' C-m
+    tmux select-pane -t "$editor_pane"
+
+    claude
+}
+
 timestamp() {
     date +%s
 }
