@@ -7,6 +7,7 @@ PACKAGES=(
     stow
     git
     git-delta
+    git-lfs
     bash
     zsh
     zsh-completions

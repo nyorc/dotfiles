@@ -17,6 +17,7 @@ PACKAGES=(
     ncdu # du alternative
     ripgrep # rg alternative to grep
     git-delta # A syntax-highlighting pager for git, diff, grep, and blame output
+    git-lfs # Git Large File Storage, used by the lfs filter in .gitconfig
     eza # ls alternative
 
     # vim

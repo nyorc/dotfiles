@@ -2,62 +2,63 @@
 	useConfigOnly = true
 
 [include]
-    path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
 
 [core]
-    editor = vim
-    quotepath = false
-    autocrlf = input
-    excludesfile = ~/.gitignore_global
-    pager = delta
+	editor = vim
+	quotepath = false
+	autocrlf = input
+	excludesfile = ~/.gitignore_global
+	pager = delta
 
 [diff]
-    algorithm = patience
+	algorithm = patience
+	colorMoved = default
+
 [log]
-    date = local
+	date = local
+
 [merge]
-    tool = vimdiff
-    log = true
-    summary = true
-[push]
-    default = simple
+	tool = vimdiff
+	log = true
+	conflictstyle = zdiff3
+
 [pull]
 	ff = only
-[color]
-    branch = auto
-    diff = auto
-    interactive = auto
-    log = auto
-    status = auto
-    ui = true
-    pager = true
+
+[init]
+	defaultBranch = main
+
+# named log formats, used by the graph log aliases below
+[pretty]
+	lg = format:%Cred%h %C(bold blue)<%an>%Creset %s %C(yellow)%d %Cgreen(%cr) %Cblue(%cd)%Creset
+	l5 = format:%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset
 
 [alias]
-    # graph log
-    lga = log --graph --pretty=format:'%Cred%h %C(bold blue)<%an>%Creset %s %C(yellow)%d %Cgreen(%cr) %Cblue(%cd)%Creset' --abbrev-commit --all
-    lg = log --graph --pretty=format:'%Cred%h %C(bold blue)<%an>%Creset %s %C(yellow)%d %Cgreen(%cr) %Cblue(%cd)%Creset' --abbrev-commit
-    lg-nc = log --graph --pretty=format:'%h <%an>% %s %d (%cr) (%cd)' --abbrev-commit
-    l5 = log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --since=5day
-    today = log --no-merges --after='yesterday 23:59'
+	# graph log
+	lg = log --graph --pretty=lg --abbrev-commit
+	lga = lg --all
+	l5 = log --graph --pretty=l5 --abbrev-commit --date=relative --since=5day
+	today = log --no-merges --after='yesterday 23:59'
 
-    # status
-    s = status --short --branch
-    st = status
+	# status
+	s = status --short --branch
+	st = status
 
-    # commit
-    c = commit
-    amend = commit --amend
+	# commit
+	c = commit
+	amend = commit --amend
 
-    # summary of repo
-    count = shortlog -sn --no-merges
+	# summary of repo
+	count = shortlog -sn --no-merges
 
-    #
-    co = checkout
-    sf = show --pretty=\"format:\" --name-only
-    up = pull -p
-    pl-fo = pull --ff-only
-    mg-nf = merge --no-ff
-    remotes = remote -v
+	# other
+	co = checkout
+	up = pull -p
+	pl-fo = pull --ff-only
+	mg-nf = merge --no-ff
+	remotes = remote -v
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -65,17 +66,9 @@
 	required = true
 
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
-    line-numbers = true
-
-[merge]
-    conflictstyle = diff3
-
-[diff]
-    colorMoved = default
-[init]
-	defaultBranch = main
+	navigate = true    # use n and N to move between diff sections
+	light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+	line-numbers = true
