@@ -49,7 +49,7 @@ describe() {
 }
 
 show_usage() {
-    echo "Usage: $0 <target>...（目前平台：$PLATFORM）"
+    echo "Usage: $0 <target>...（目前平台：${PLATFORM}）"
     printf "  %-6s %s\n" all "${ALL_TARGETS[*]}"
     for script in "$PLATFORM_DIR"/*.sh; do
         local target
@@ -87,8 +87,8 @@ for target in "${targets[@]}"; do
 done
 
 for target in "${targets[@]}"; do
-    print_heading "$BLUE" "$PLATFORM/$target：$(describe "$target")"
+    print_heading "$BLUE" "$PLATFORM/${target}：$(describe "$target")"
     "$PLATFORM_DIR/$target.sh"
 done
 
-print_heading "$GREEN" "完成（$PLATFORM）：${targets[*]}"
+print_heading "$GREEN" "完成（${PLATFORM}）：${targets[*]}"
