@@ -8,7 +8,8 @@ PACKAGES=(
     google-chrome
     firefox
     telegram-desktop
-    visual-studio-code
+    zed
+    squirrel-app # rime
     keepingyouawake
     keycastr
     rectangle

@@ -27,6 +27,10 @@ PACKAGES=(
     eza
     ripgrep # rg
     go
+    uv
+    hugo
+    yt-dlp
+    tailscale
 
     # vim
     vim
