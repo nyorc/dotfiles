@@ -174,6 +174,12 @@ if [[ -s "$HOME/.zsh/mac.zsh" ]]; then
     source "$HOME/.zsh/mac.zsh"
 fi
 
+# zoxide: z <keyword> jumps to a frequently used directory
+# zoxide's docs require this near the end of the config, after compinit (run by zim's init.zsh).
+if (( ${+commands[zoxide]} )); then
+    eval "$(zoxide init zsh)"
+fi
+
 # load .zshrc.local if exist
 if [ -e "$HOME/.zshrc.local" ]; then
     source "$HOME/.zshrc.local"

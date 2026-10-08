@@ -20,6 +20,9 @@ PACKAGES=(
     git-delta # A syntax-highlighting pager for git, diff, grep, and blame output
     git-lfs # Git Large File Storage, used by the lfs filter in .gitconfig
     eza # ls alternative
+    tealdeer # tldr client
+    zoxide # cd that jumps to frequently used directories
+    duf # df alternative
 
     # vim
     vim-gtk3 # +clipboard
@@ -44,6 +47,9 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
+
+# tealdeer 預設不自動下載文件，沒有快取時 tldr 會直接報錯
+tldr --update
 
 # fzf：.zshrc、vim、tmux 都從 ~/.fzf 找 fzf
 if [ ! -d ~/.fzf ]; then

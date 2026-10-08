@@ -25,6 +25,9 @@ PACKAGES=(
     jq
     bat
     eza
+    tealdeer # tldr client
+    zoxide # cd that jumps to frequently used directories
+    duf # df alternative
     ripgrep # rg
     go
     uv
@@ -57,6 +60,9 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
+
+# tealdeer 預設不自動下載文件，沒有快取時 tldr 會直接報錯
+tldr --update
 
 # fzf：.zshrc、vim、tmux 都從 ~/.fzf 找 fzf
 if [ ! -d ~/.fzf ]; then
