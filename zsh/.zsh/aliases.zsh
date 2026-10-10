@@ -33,6 +33,11 @@ elif type batcat > /dev/null; then
     alias cat='batcat'
 fi
 
+# duf (df alternative; it does not accept df's flags, use `command df` for the original)
+if type duf > /dev/null; then
+    alias df='duf'
+fi
+
 # tmux
 if type tmux > /dev/null; then
     alias txwork='tmux new-session -A -s work'
