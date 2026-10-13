@@ -35,6 +35,17 @@ tldev() {
     claude
 }
 
+# Attach to session $1, creating it if missing; inside tmux, switch the
+# client instead of nesting a session
+txsession() {
+    if [[ -n $TMUX ]]; then
+        tmux has-session -t "=$1" 2> /dev/null || tmux new-session -d -s "$1"
+        tmux switch-client -t "=$1"
+    else
+        tmux new-session -A -s "$1"
+    fi
+}
+
 timestamp() {
     date +%s
 }

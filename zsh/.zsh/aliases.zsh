@@ -40,6 +40,6 @@ fi
 
 # tmux
 if type tmux > /dev/null; then
-    alias txwork='tmux new-session -A -s work'
-    alias txcli='tmux new-session -A -s cli'
+    alias txwork='txsession work'
+    alias txcli='txsession cli'
 fi
