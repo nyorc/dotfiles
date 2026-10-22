@@ -143,6 +143,11 @@ unset key
 # }}} End configuration added by Zim install
 #
 
+# Nested shells (tmux, editors, agents) inherit PATH and run the prepends below
+# again; keep only the first occurrence of each entry. Marking only the path
+# array does not dedupe plain PATH="...:$PATH" assignments, so mark both.
+typeset -U PATH path
+
 # Load customize p10k prompt
 [[ ! -f ~/.dotfiles/p10k/p10k.zsh ]] || source ~/.dotfiles/p10k/p10k.zsh
 
