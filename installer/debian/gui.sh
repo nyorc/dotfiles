@@ -1,5 +1,5 @@
 #!/bin/bash
-# 說明：安裝圖形介面應用程式、Noto 字型與 Hack Nerd Font
+# 說明：安裝圖形介面應用程式、Noto 字型、Hack Nerd Font 與 rime 嘸蝦米方案
 
 set -e
 
@@ -32,6 +32,15 @@ if [ -z "$(find /var/lib/apt/lists/partial -maxdepth 0 -mmin -60)" ]; then
 fi
 echo "Installing GUI packages: ${PACKAGES[*]}"
 sudo apt install -y "${PACKAGES[@]}"
+
+# rime 嘸蝦米方案：用東風破（plum）安裝，啟用方案交給 make dotfiles-rime。
+# 已安裝就跳過，因為 plum 會覆蓋內容不同的檔案，蓋掉自己加過詞的 liur_customWords.dict.yaml。
+if [ ! -f "$HOME/.config/ibus/rime/liur.schema.yaml" ]; then
+    PLUM_TMP="$(mktemp -d)"
+    curl -fsSL https://raw.githubusercontent.com/rime/plum/master/rime-install \
+        | plum_dir="$PLUM_TMP/plum" bash -s -- nyorc/rime-liur
+    rm -rf "$PLUM_TMP"
+fi
 
 # font: 從正式發行版下載，原始碼庫的目錄結構會變動，macOS 的 cask 也是用發行版
 FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz"
