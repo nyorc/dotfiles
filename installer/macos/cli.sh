@@ -46,9 +46,6 @@ PACKAGES=(
 
     # tmux
     tmux
-    # tmux exits with [exited] on mac os x
-    # https://superuser.com/questions/397076/tmux-exits-with-exited-on-mac-os-x
-    reattach-to-user-namespace
     tmux-mem-cpu-load
 )
 
