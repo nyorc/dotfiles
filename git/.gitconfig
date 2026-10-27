@@ -52,6 +52,16 @@
 	# summary of repo
 	count = shortlog -sn --no-merges
 
+	# delete local branches merged into the current branch
+	sweep = "!f() { \
+		b=$(git for-each-ref --merged=HEAD --format=\"%(refname:lstrip=2)\" refs/heads/ | rg -vxF -e main -e master -e dev -e \"$(git branch --show-current)\"); \
+		[ -n \"$b\" ] || return 0; \
+		echo \"$b\"; \
+		printf \"Delete these branches? [y/N] \"; \
+		read a; \
+		case $a in [yY]) git branch -d -- $b;; esac; \
+	}; f"
+
 	# other
 	co = checkout
 	up = pull -p
