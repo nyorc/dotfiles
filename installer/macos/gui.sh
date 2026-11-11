@@ -1,5 +1,5 @@
 #!/bin/bash
-# 說明：安裝圖形介面應用程式（brew cask）、Hack Nerd Font 與 rime 嘸蝦米方案
+# 說明：安裝圖形介面應用程式（brew cask）、Hack Nerd Font 與 rime 嘸蝦米方案，並縮小視窗圓角
 
 set -e
 
@@ -34,3 +34,7 @@ if [ ! -f "$HOME/Library/Rime/liur.schema.yaml" ]; then
         | plum_dir="$PLUM_TMP/plum" bash -s -- nyorc/rime-liur
     rm -rf "$PLUM_TMP"
 fi
+
+# 視窗圓角半徑縮成 10pt：系統預設的圓角會切掉貼齊視窗邊緣的內容，例如 Alacritty 最下面一行的兩端。
+# NSConvolutionOverride1 是 AppKit 沒有公開文件的偏好設定，應用程式重開後才套用。
+defaults write -g NSConvolutionOverride1 -float 10
