@@ -117,13 +117,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# set golang env
-if [ -d "$HOME/go" ]; then
-    export GOROOT=$HOME/go
-    export GOPATH=$HOME/zerobook/go_work
-    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-fi
-
 # set composer env
 if [ -d "$HOME/.config/composer/vendor/bin/" ]; then
     export PATH=$PATH:$HOME/.config/composer/vendor/bin/
