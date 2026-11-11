@@ -45,10 +45,10 @@ fi
 # font: 從正式發行版下載，原始碼庫的目錄結構會變動，macOS 的 cask 也是用發行版
 FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz"
 FONT_DIR="$HOME/.local/share/fonts"
-FONT_NAME="HackNerdFontMono-Regular.ttf"
+FONT_PATTERN="HackNerdFontMono-*.ttf" # Regular、Bold、Italic、BoldItalic
 
-if [ ! -f "$FONT_DIR/$FONT_NAME" ]; then
+if [ ! -f "$FONT_DIR/HackNerdFontMono-Regular.ttf" ]; then
     mkdir -p "$FONT_DIR"
-    curl -fL "$FONT_URL" | tar -xJ -C "$FONT_DIR" "$FONT_NAME"
+    curl -fL "$FONT_URL" | tar -xJ -C "$FONT_DIR" --wildcards "$FONT_PATTERN"
     fc-cache "$FONT_DIR"
 fi
