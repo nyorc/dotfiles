@@ -300,7 +300,7 @@ let customOptions = #{
       \ completor: #{ shuffleEqualPriority: v:true, postfixHighlight: v:true  },
       \ buffer: #{ priority: 10 },
       \}
-autocmd VimEnter * call g:VimCompleteOptionsSet(customOptions)
+autocmd VimEnter * if exists('*g:VimCompleteOptionsSet') | call g:VimCompleteOptionsSet(customOptions) | endif
 " }}}
 
 " ## LSP {{{
